@@ -6,9 +6,7 @@ import {startRemoveEvent} from '../actions/events';
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 const EditEventPage= (props) => {
-
 
     const onSubmit = (update) => {
         props.editEvent(props.event.id, update);
@@ -28,8 +26,6 @@ const EditEventPage= (props) => {
     )
 }
 
-
-
 const mapStateToProps = (state, props) => {
     return {
         event: state.events.find((event) => event.id === props.match.params.id),
@@ -43,6 +39,5 @@ const mapDispatchToProps = (dispatch) => {
         removeEvent: (id) => dispatch(startRemoveEvent(id))
     }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditEventPage);

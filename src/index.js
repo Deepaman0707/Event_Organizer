@@ -20,7 +20,6 @@ import './styles/styles.scss';
 
 const store = configureStore();
 
-
 const jsx = (
     <Provider store={store}>
       <AppRouter />
@@ -60,6 +59,5 @@ if (token) {
 }else{
     renderApp();
 }
-
 
 serviceWorker.unregister();

@@ -30,7 +30,7 @@ export const EditUserDetails = ({user, addUserDetails, addUserImage}) => {
         formData.append('image', image, image.name);
         console.log(1234)
         addUserImage(formData).then(data => setImageUrl(data))
-        
+
     }
     return(
         <div className="edit-user">
@@ -64,6 +64,7 @@ export const EditUserDetails = ({user, addUserDetails, addUserImage}) => {
         </div>
     );
 }
+
 const mapStateToProps = (state) => ({
     user: state.user.user
 })
@@ -72,4 +73,5 @@ const mapDispatchToProps = (dispatch) => ({
     addUserDetails: (details) => dispatch(startAddUserDetails(details)),
     addUserImage: (formData) => dispatch(startAddUserImage(formData))
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(EditUserDetails);

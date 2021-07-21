@@ -10,16 +10,14 @@ const DashboardPage = () => (
     <div>
         <EventFilters/>
         <div className="card">
-        <div className="blog-card">
-            <EventList/>
+            <div className="blog-card">
+                <EventList/>
+            </div>
+            <div className="famous-card">
+                {/* <FamousCard/> */}
+            </div>   
+            {true && <Link to="/add" className="button-floating"><button><FontAwesomeIcon icon={faPlus}/></button></Link> }
         </div>
-        <div className="famous-card">
-            {/* <FamousCard/> */}
-        </div>   
-        {true && <Link to="/add" className="button-floating"><button><FontAwesomeIcon icon={faPlus}/></button></Link> }
-    </div>
-    
-
     </div>
     
 )
