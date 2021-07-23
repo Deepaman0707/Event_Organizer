@@ -1,0 +1,347 @@
+.button{
+  border: none;
+  display: inline-block;
+  font-family: 'Livvic', sans-serif;
+  outline: none;
+  text-decoration: none;
+  font-size: $font-size-large;
+  line-height: 1;
+  margin: 0;  
+}
+
+.button-primary{
+  color: white;
+  font-size: $font-size-large;
+  font-weight: 300;
+  padding: $s-size 2rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  background: $orange;
+  // box-shadow: 0 5px 40px -10px $orange;
+
+}
+
+.button-edit{
+  position: absolute;
+  right: 1rem;
+  color:$blush;
+  margin: 0.5rem 2rem;
+  background: transparent;
+  @media (max-width: $desktop-breakpoint){
+    right: -1.2rem;
+  }
+}
+
+.button-editProfile{
+  right: 1rem;
+  color:$blush;
+  margin: 0.5rem 2rem;
+  background: transparent;
+}
+.button-remove{
+  position: absolute;
+  right: 0;
+  color:$blush;
+  margin: 0.5rem 2rem;
+  background: transparent;
+}
+
+
+.button-secondary{
+  height: 5rem;
+  width: 7rem;
+  background: $blush;
+  color: white;
+  font-weight: 300;
+  padding: $s-size 2rem;
+  border:none;
+  border-radius: 10px;
+  outline: none;
+}
+
+.button-logout{
+  border: none;
+  font-family: 'Livvic', sans-serif;
+  color:black ;
+  display: inline-block;
+  line-height: 1;
+  padding: $s-size 1.5rem;
+  text-decoration: none;
+  border-radius: 10px;
+  outline: none;
+}
+
+
+.button-submit{
+  margin-top: 1rem;
+}
+.button-secondary:hover {
+  padding: 1.5rem 2.6rem; 
+  transition: all 0.2s ease;
+}
+.button-primary:hover {
+  transition: all 0.2s ease;
+  background: $blush;
+}
+.button-primary:active {
+  box-shadow: 0 5px darken($orange, $amount: 2);
+  transform: translateY(4px);
+}
+.button-secondary:active {
+  box-shadow: 0 5px darken($orange, $amount: 2);
+  transform: translateY(4px);
+}
+.button--link {
+  background: none;
+}
+
+.button--secondary {
+  background: #888;
+}
+
+
+
+.btn-secondary {
+  display: block;
+  margin: 10px 5px 0 0;
+  // position: fixed;
+  // left: 10vw;
+  // bottom: 45vh;  
+  text-align: center;
+  background: $orange;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -15px $orange;
+  padding: 10px 17px;
+  font-size: 18px;
+  cursor: pointer;
+  border: 1px $blue;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.btn-secondary:hover {
+  transform: translateY(-3px);
+}
+
+
+.btn-secondary .fa {
+  margin-right: 5px;
+}
+
+.btn-primary {
+  display: block;
+  // position: fixed;
+  // left: 10vw;
+  // bottom: 45vh; 
+  margin: 10px 5px 0 0;
+  text-align: center;
+  background: $san-juan;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -10px $san-juan;
+  padding: 10px 17px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+}
+.btn-primary .fa {
+  margin-right: 5px;
+}
+
+.animate-like {
+animation-name: likeAnimation;
+animation-iteration-count: 1;
+animation-fill-mode: forwards;
+animation-duration: 0.65s;
+}
+@keyframes likeAnimation {
+0%   { transform: scale(30); }
+100% { transform: scale(1); }
+}
+
+
+
+.button-dropbtn {
+  background: transparent;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  color: $blush;
+  outline: none;
+
+}
+
+/* The container <div> - needed to position the dropdown content */
+.button-dropdown {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+
+}
+
+/* Dropdown Content (Hidden by Default) */
+.button-dropdown__content { 
+  display: none;
+  position: absolute;
+  left: -5rem;
+  background-color: #f9f9f9;
+  width: 15rem;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+/* Links inside the dropdown */
+.button-dropdown__content button {
+  width: 100%;
+  padding: 10px 10px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid darken(#f1f1f1, 10%);
+
+}
+
+/* Change color of dropdown links on hover */
+.button-dropdown__content button:hover {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+
+/* Show the dropdown menu on hover */
+.button-dropdown:hover .button-dropdown__content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+// .button-dropdown:hover .button-dropbtn {
+//   background-color: $blush;
+// }
+
+
+.mobile-nav{
+	background-color: #3C3842;
+	max-width: 200px;
+	width: 100%;
+	height: 100%;
+	transform: translate(-100%, 0);
+	-webkit-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+
+.mobile-nav h2{
+	padding: 25px 20px;
+}
+
+.mobile-nav li a{
+	color: #989AA4;
+	display: block;
+	padding: 15px 20px;
+}
+
+.mobile-one .mobile-nav li a:hover{
+	background-color: #23252B;
+	color: #fff;
+	border-left: 3px solid #44bfc6;
+}
+
+
+.button-floating button{
+    color: white;
+    position: sticky;
+    height: 6rem;
+    width: 6rem;
+    background: $orange;
+    border-radius: 50%;
+    border:none;
+    outline: none;
+    bottom: 1rem;
+    left: 47.8%;
+    z-index: 100;
+    &:hover{
+      transform: scale(1.25);
+      transition: transform 0.1s ease;
+    }
+
+    @media screen and (max-width: $desktop-breakpoint){
+      top:80vh;
+      left: 42vw;
+    }
+}
+
+
+.btn {
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid $red;
+  border-radius: 0.6em;
+  color: $red;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  padding: 1.2em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  // font-size: $font-size-medium;
+    &:hover,
+  &:focus {
+    color: #fff;
+    outline: 0;
+  }
+}
+
+.third {
+  text-align: center;
+  border-color: $blush;
+  color: #fff;
+  // box-shadow: 0 0 40px 40px $blush inset, 0 0 0 0 $blush;
+  transition: all 150ms ease-in-out;
+  
+  &:hover {
+    box-shadow: 0 0 10px 0 $blush inset, 0 0 10px 4px $blush;
+  }
+
+  &:active {
+    transform: translateY(4px);
+  }
+}
+
+
+.button-register{
+  position: fixed;
+  top: 40vh;
+  left: 6.8vw;
+  background: $san-juan;
+  @media screen and (max-width:$desktop-breakpoint){
+    position: static;
+    margin-top: 2rem;
+  }
+}
+.button-join{
+  position: fixed;
+  top: 55vh;
+  left: 5vw;
+  background: $san-juan;
+  @media screen and (max-width:$desktop-breakpoint){
+    position: static;
+   
+  }
+}

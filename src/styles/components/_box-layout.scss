@@ -1,0 +1,254 @@
+.box-layout {
+  font-family: 'Roboto', sans-serif;
+  background: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-areas: 
+  "logo logo login";
+  opacity: 0.95;
+  a{
+    color: $orange;
+    text-decoration: underline;
+  }
+}
+
+.box-layout__box {
+  grid-area: login;
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background:darken(#2E3740,8%);
+  // border-radius: 3rem;
+  padding: $l-size $m-size;
+  text-align: center;
+  width: 38vw;
+  // height: 58rem`;
+  height: 100vh;
+  transition: all 0.2s ease-in;
+  @media screen and (max-width: $desktop-breakpoint){
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+}
+
+.box-layout__signup-box {
+  background:darken(#2E3740,8%);
+  padding: $l-size $m-size;
+  text-align: center;
+  width: 40vw;
+  height: 100vh;
+  @media screen and (max-width: $desktop-breakpoint){
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+}
+
+
+.box-layout__logo-outside{
+  @media screen and (max-width: $desktop-breakpoint){
+    display: none;
+  }
+  grid-area: logo;
+  // background: lighten($color: #2E3740, $amount: 0.3)
+  background: url('/images/bg1.jpg') center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  width: 62vw;  
+}
+
+
+.box-layout__logo-outside img{
+  display:flex;
+  justify-content: center;
+  height: 15rem;
+}
+
+.box-layout__logo-inside{
+  // @media screen and (min-width: $desktop-breakpoint){
+  //   display: none;
+  // }
+  grid-area: logo;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.box-layout__logo-inside img{
+  display:flex;
+  justify-content: center;
+  height: 12rem;
+}
+
+
+.box-layout__title {
+  margin: 0 0 $s-size 0;
+  line-height: 1;
+  color:$orange;
+  font-size: $xl-size;
+  @media screen and (max-width:$desktop-breakpoint){
+    font-size: $l-size;
+  }
+}
+
+.Tilt{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.box-layout__subtitle {
+  color:white;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  @media (max-width:$desktop-breakpoint){
+    position: absolute;
+    z-index: -1;
+    visibility: hidden;
+  }
+}
+
+
+.box-layout__input {
+  border-radius: 3px;
+}
+.box-layout__question {
+  margin: 2rem 0 0.5rem 0;
+  color: $skin;
+  font-size: 1.7rem;
+}
+
+h5{
+  margin:1rem;
+  color: $skin;
+  font-weight: 200;
+  font-size: 1.5rem;
+}
+
+.margin-bottom{
+  margin-bottom: 3rem;
+}
+.box-layout input{
+  border: 0;
+  // font-family: cursive;
+  background: none;
+  display: block;
+  margin: 3rem auto;
+  text-align: center;
+  border-bottom: 2px solid $blush;
+  border-top: 2px solid $blush;
+  border-radius: 10px;
+  width: 23vw;
+  padding: $s-size $xl-size;
+  outline: none;
+  color: $skin;
+  font-weight: 200;
+  &:focus{
+    &::placeholder{
+      color: transparent;
+    }
+  }
+
+@media screen and (max-width: $desktop-breakpoint){
+  width: 75vw;
+  margin: 4rem auto;
+}
+
+}
+
+
+
+.box-layout__signup-box input{
+  margin: 2rem auto; 
+}
+
+.box-layout__signin{
+  display: flex;
+  margin: 0 7rem;
+  @media screen and (max-width: $desktop-breakpoint){
+    margin: 3rem 10vw 2rem 10vw;
+
+  }
+  justify-content: space-around;
+  & button{
+    background: transparent;
+    border: none;
+    color: $orange;
+    margin-bottom: 1rem;
+  }
+}
+
+.box-layout__signin button:hover{
+  color: $blush;
+}
+
+.box-layout input:hover {
+  border: 2px solid $skin;
+  
+}
+
+.box-layout input::placeholder{
+  color:$blush;
+}
+
+
+.box-layout__wrap-login {
+  width: 960px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 177px 130px 33px 95px;
+}
+
+.box-layout__login-form-title{
+  // font-family: Poppins-Bold;
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding-bottom: 54px;
+}
+
+
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
