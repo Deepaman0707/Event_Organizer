@@ -3,23 +3,43 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import jwtDecode from 'jwt-decode';
+import ModalDialog from '../components/CreateEvent_Forms/Forms'; 
+
+
+
 export const PrivateRoute = ({
   login,
   isAuthenticated,
   component: Component,
   ...rest
 }) => {
-  return(
-      <Route {...rest} component={(props) => (
-      (isAuthenticated === true) ? (
-        <div>
-          <Header />
-          <Component {...props} />
-        </div>
-      ) : (
-          <Redirect to="/" />
+  const [open, setOpen] = React.useState(false)
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  return (
+    <Route
+      {...rest}
+      component={(props) =>
+        isAuthenticated === true ? (
+          <div>
+            <Header
+              handleOpen={handleOpen}
+            />
+            <Component {...props} />
+            <ModalDialog open={open} handleClose={handleClose} />
+          </div>
+        ) : (
+          <Redirect to='/' />
         )
-      )} />
+      }
+    />
   )
 }
 

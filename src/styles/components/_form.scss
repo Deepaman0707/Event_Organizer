@@ -32,7 +32,6 @@
     & img{
       height:50vh;
       width:100%;
-
     }
 
     @media (max-width: $desktop-breakpoint){
@@ -100,17 +99,17 @@
     display: flex;
     justify-content: flex-start;
   }
-  .form-title{
+  .title{
     border: none;
     border-radius: 0.5rem;
     text-align: center;
     outline: none;
     height: 5rem;
     width: 70rem;
-    font-size: $font-size-xl;
+    // font-size: $font-size-xl;
     color: white;
     font-weight: 700;
-    background: lighten($dark-grey,7);
+    // background: lighten($dark-grey,7);
 
     margin-bottom: 3rem;
     &:focus{

@@ -13,10 +13,10 @@
   color: white;
   font-size: $font-size-large;
   font-weight: 300;
-  padding: $s-size 2rem;
+  padding: $s-size 4rem;
   border-radius: 8px;
   margin-bottom: 0.5rem;
-  background: $orange;
+  background: #0755e6;
   // box-shadow: 0 5px 40px -10px $orange;
 
 }
@@ -81,7 +81,7 @@
 }
 .button-primary:hover {
   transition: all 0.2s ease;
-  background: $blush;
+  background: #0543b6;
 }
 .button-primary:active {
   box-shadow: 0 5px darken($orange, $amount: 2);
