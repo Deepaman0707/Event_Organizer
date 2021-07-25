@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
-import {startLogin } from '../actions/auth';
+import {startLogin } from './../../actions/auth';
 import isEmail from 'validator/lib/isEmail';
 import Link from 'react-router-dom/Link';
 import Tilt from 'react-tilt';

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import EventListItem from './EventListItem';
-import {startGetUserEvents} from '../actions/user';
+import EventListItem from './../HomePage/EventListItem';
+import {startGetUserEvents} from './../../actions/user';
 
 
 export const MyEventList = (props) => {

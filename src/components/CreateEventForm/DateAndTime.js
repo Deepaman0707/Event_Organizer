@@ -4,9 +4,8 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 
 
-export default function FormPage2(props) {
+const DateAndTime = (props) => {
   return (
-    <React.Fragment>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
@@ -107,6 +106,7 @@ export default function FormPage2(props) {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
   )
 }
+
+export default DateAndTime;

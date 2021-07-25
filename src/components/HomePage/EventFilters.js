@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setTextFilter, sortByDate, sortByLikes} from '../actions/filters';
+import { setTextFilter, sortByDate, sortByLikes} from './../../actions/filters';
 import {faHeart, faTable} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 

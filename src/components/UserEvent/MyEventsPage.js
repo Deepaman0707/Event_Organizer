@@ -1,6 +1,6 @@
 import React from 'react';
 import MyEventList from './MyEventList';
-import UserDetails from './UserDetails';
+import UserDetails from '../UserDetails/UserDetails';
 const MyBlogsPage = (props) => (
     <div className="my-blogs">
         <div className="my-blogs__blogs">

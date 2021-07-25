@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {startAddUserDetails, startAddUserImage} from '../actions/user';
+import {startAddUserDetails, startAddUserImage} from './../../actions/user';
 export const EditUserDetails = ({user, addUserDetails, addUserImage}) => {
 
     const [name, setName] = useState(user.name);

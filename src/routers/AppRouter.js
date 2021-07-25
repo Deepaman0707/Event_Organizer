@@ -1,17 +1,16 @@
 import React from 'react';
 import { Router, Route, Switch} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import DashboardPage from '../components/DashboardPage';
-import SignupPage from '../components/SignupPage';
-import NotFoundPage from '../components/NotFoundPage';
-import LoginPage from '../components/LoginPage';
-import AddEventPage from '../components/AddEventPage';
-import EventCard from '../components/EventCard';
-import UserDetailsPage from '../components/UserDetailsPage';
-import EditEventPage from '../components/EditEventPage';
-import MyEventsPage from '../components/MyEventsPage';
+import DashboardPage from '../components/HomePage/DashboardPage';
+import SignupPage from '../components/AuthServices/SignupPage';
+import NotFoundPage from '../components/Wrappers/NotFoundPage';
+import LoginPage from '../components/AuthServices/LoginPage';
+import EventCard from '../components/EventDetails/EventCard';
+import UserDetailsPage from '../components/UserDetails/UserDetailsPage';
+import EditEventPage from '../components/UserEvent/EditEventPage';
+import MyEventsPage from '../components/UserEvent/MyEventsPage';
 import PrivateRoute from './PrivateRoute';
-import EditUserDetails from '../components/EditUserDetails';
+import EditUserDetails from '../components/UserDetails/EditUserDetails';
 import PublicRoute from './PublicRoute';
 export const history = createHistory();
 
@@ -22,7 +21,6 @@ const AppRouter = () => (
         <PublicRoute path="/" component={LoginPage} exact={true} />
         <PublicRoute path="/signup" component={SignupPage} />
         <PrivateRoute path="/dashboard" component={DashboardPage} />
-        <PrivateRoute path="/add" component={AddEventPage} exact={true}/>
         <PrivateRoute path='/event/:id' component={EventCard}></PrivateRoute>
         <PrivateRoute path='/edit/:id' component={EditEventPage}></PrivateRoute>
         <PrivateRoute path='/user/:handle' component={MyEventsPage}></PrivateRoute>

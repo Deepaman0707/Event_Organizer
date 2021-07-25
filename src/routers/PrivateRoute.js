@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/Wrappers/Header';
 import jwtDecode from 'jwt-decode';
-import ModalDialog from '../components/CreateEvent_Forms/Forms'; 
+import ModalDialog from '../components/CreateEventForm/AddEventForm'; 
 
 
 
