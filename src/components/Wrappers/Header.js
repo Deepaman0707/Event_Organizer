@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { startLogout } from '../actions/auth'
+import { startLogout } from './../../actions/auth'
 import { Link } from 'react-router-dom'
-import { history } from '../routers/AppRouter'
+import { history } from './../../routers/AppRouter'
 import {
   faPlus,
   faBlog,

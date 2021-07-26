@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import EventForm from './EventForm'
+import EventForm from '../EventForm'
 import {connect} from 'react-redux';
-import {startEditEvent} from '../actions/events'
-import {startRemoveEvent} from '../actions/events';
+import {startEditEvent, startRemoveEvent} from './../../actions/events'
+// import {startRemoveEvent} from '../../../actions/events';
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

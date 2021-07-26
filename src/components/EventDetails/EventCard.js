@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link'
-import { setLikeEvent, setUnLikeEvent, } from '../actions/events';
-import { setCheckLikeEvent } from '../actions/user';
-import { startRegisterEvent, startUnRegisterEvent} from '../actions/events';
+import { setLikeEvent, setUnLikeEvent, } from './../../actions/events';
+import { setCheckLikeEvent } from './../../actions/user';
+import { startRegisterEvent, startUnRegisterEvent} from './../../actions/events';
 // import Comments from './Comments'
 import { faHeart, faCalendarAlt, faClock, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

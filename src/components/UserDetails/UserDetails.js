@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {startGetUserDetails} from '../actions/user';
+import {startGetUserDetails} from './../../actions/user';
 export const UserDetails = ({user, handle,getUserDetails, follows}) => {
     
     const [userData, setUserData] = useState([]);

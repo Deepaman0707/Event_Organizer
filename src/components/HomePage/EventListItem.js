@@ -3,7 +3,7 @@ import moment from 'moment';
 import Link from 'react-router-dom/Link';
 import { faCalendarAlt, faClock, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { history } from '../routers/AppRouter';
+import { history } from './../../routers/AppRouter';
 
 export const EventListItem = ({ eventName, description, userImageUrl, time, userHandle, imageUrl, startTime, endTime,eventId, location, startDate, endDate, fee, id, venues }) => (
     <div className={"list-card" + ((history.location.pathname === '/myblogs' || history.location.pathname.includes('/user')) ? " my-blogs__list-card" : "")}>
