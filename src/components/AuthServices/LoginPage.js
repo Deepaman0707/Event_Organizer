@@ -15,7 +15,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import ParticlesBg from "particles-bg";
+
 
 import { faGoogle, faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -132,7 +132,7 @@ export const LoginPage = ({ startLogin, error, unsetError, loading }) => {
           </form>
         </div>
       </Container>
-      <ParticlesBg type="random" bg={true} />
+
       {/* <h5>or login using</h5>
                         <div className="box-layout__signin"> 
                              <button>
