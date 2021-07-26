@@ -12,7 +12,6 @@ export const EventListItem = ({ eventName, description, userImageUrl, time, user
                 {imageUrl ? <img src={imageUrl} alt="" /> : <img src='/images/img5.jpeg' alt="" />}
             </div>
             <div className="list-card__content">
-                {console.log("bitch"+id)}
                 <Link className="list-card__body-title" to={`/event/${id||eventId}`}>
                     {eventName}
                     <div className="list-card__body-author">

@@ -9,12 +9,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import ParticlesBg from "particles-bg";
+import AddIcon from '@material-ui/icons/Add';
+import Fab from "@material-ui/core/Fab";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit">
         Your Website
       </Link>{" "}
       {new Date().getFullYear()}
@@ -31,13 +33,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
   },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
   footer: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
+  },
+  fab: {
+    margin: 0,
+    top: "auto",
+    right: 20,
+    bottom: 20,
+    left: "auto",
+    position: "fixed",
   },
 }));
 
@@ -69,12 +75,15 @@ const DashboardPage = () => {
           </Container>
           <ParticlesBg type="random" bg={true} />
         </div>
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
             <EventList />
-          </Grid>
-        </Container>
+            <Fab
+            size="small"
+            className={classes.fab}
+            component="span"
+            aria-label="add"
+          >
+            <AddIcon />
+          </Fab>
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
