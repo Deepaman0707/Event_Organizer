@@ -1,25 +1,26 @@
-import React from "react";
-import EventList from "./EventList";
-import EventFilters from "./EventFilters";
+import React from 'react'
+import EventList from './EventList'
+import EventFilters from './EventFilters'
 
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
-import ParticlesBg from "particles-bg";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
+import Link from '@material-ui/core/Link'
+import ParticlesBg from 'particles-bg'
+import AddIcon from '@material-ui/icons/Add'
+import Fab from '@material-ui/core/Fab'
+import ModalDialog from '../CreateEventForm/AddEventForm'
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit">Your Website</Link> {new Date().getFullYear()}
-      {"."}
+    <Typography variant='body2' color='textSecondary' align='center'>
+      {'Copyright © '}
+      <Link color='inherit'>Your Website</Link> {new Date().getFullYear()}
+      {'.'}
     </Typography>
-  );
+  )
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -36,17 +37,26 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     margin: 0,
-    top: "auto",
+    top: 'auto',
     right: 20,
     bottom: 20,
-    left: "auto",
-    position: "fixed",
+    left: 'auto',
+    position: 'fixed',
   },
-}));
+}))
 
 // import FamousCard from './FamousCard';
 const DashboardPage = () => {
-  const classes = useStyles();
+  const classes = useStyles()
+  const [open, setOpen] = React.useState(false)
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   return (
     <React.Fragment>
@@ -54,43 +64,45 @@ const DashboardPage = () => {
       {/* Hero unit */}
       <div
         className={classes.heroContent}
-        style={{ backgroundColor: "transparent", position: "relative" }}
+        style={{ backgroundColor: 'transparent', position: 'relative' }}
       >
-        <Container maxWidth="sm">
+        <Container maxWidth='sm'>
           <Typography
-            component="h1"
-            variant="h2"
-            align="center"
-            color="textPrimary"
+            component='h1'
+            variant='h2'
+            align='center'
+            color='textPrimary'
             gutterBottom
           >
             Explore
           </Typography>
-          <Grid container spacing={2} justifyContent="center">
+          <Grid container spacing={2} justifyContent='center'>
             <EventFilters />
           </Grid>
-          <ParticlesBg type="random" bg={true} />
+          <ParticlesBg type='random' bg={true} />
         </Container>
       </div>
       <EventList />
       <Fab
-        size="small"
+        size='small'
         className={classes.fab}
-        component="span"
-        aria-label="add"
+        component='span'
+        aria-label='add'
+        onClick={handleOpen}
       >
         <AddIcon />
       </Fab>
+      <ModalDialog open={open} handleClose={handleClose} />
       {/* Footer */}
       <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
+        <Typography variant='h6' align='center' gutterBottom>
           Footer
         </Typography>
         <Typography
-          variant="subtitle1"
-          align="center"
-          color="textSecondary"
-          component="p"
+          variant='subtitle1'
+          align='center'
+          color='textSecondary'
+          component='p'
         >
           Something here to give the footer a purpose!
         </Typography>
@@ -98,7 +110,7 @@ const DashboardPage = () => {
       </footer>
       {/* End footer */}
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default DashboardPage;
+export default DashboardPage
