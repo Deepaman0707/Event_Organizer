@@ -52,12 +52,12 @@ const Header = (props) => {
   return (
     <div className='header'>
       <div className='header__content'>
-        <div>
+        {/* <div>
           <Link to='/dashboard' className='header__title'>
             <img src='/images/logo.png' alt='' />
             <h1>Ocassionly</h1>
           </Link>
-        </div>
+        </div> */}
         <div className='header__links'>
           <input type='checkbox' id='toggler' />
           <div id='hamburger'>

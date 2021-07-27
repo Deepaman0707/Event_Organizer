@@ -9,9 +9,14 @@ import EventCard from '../components/EventDetails/EventCard';
 import UserDetailsPage from '../components/UserDetails/UserDetailsPage';
 import EditEventPage from '../components/UserEvent/EditEventPage';
 import MyEventsPage from '../components/UserEvent/MyEventsPage';
-import PrivateRoute from './PrivateRoute';
 import EditUserDetails from '../components/UserDetails/EditUserDetails';
+
+import LoadingPage from '../components/Wrappers/LoadingPage';
+
+import PrivateRoute from './PrivateRoute';
+import HeaderlessRoute from './HeaderlessRoute';
 import PublicRoute from './PublicRoute';
+
 export const history = createHistory();
 
 const AppRouter = () => (
@@ -20,7 +25,8 @@ const AppRouter = () => (
       <Switch>
         <PublicRoute path="/" component={LoginPage} exact={true} />
         <PublicRoute path="/signup" component={SignupPage} />
-        <PrivateRoute path="/dashboard" component={DashboardPage} />
+        <Route path="/loading" component={LoadingPage} />
+        <HeaderlessRoute path="/dashboard" component={DashboardPage} />
         <PrivateRoute path='/event/:id' component={EventCard}></PrivateRoute>
         <PrivateRoute path='/edit/:id' component={EditEventPage}></PrivateRoute>
         <PrivateRoute path='/user/:handle' component={MyEventsPage}></PrivateRoute>

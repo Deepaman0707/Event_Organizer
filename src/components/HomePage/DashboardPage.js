@@ -9,17 +9,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import ParticlesBg from "particles-bg";
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
+      <Link color="inherit">Your Website</Link> {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -54,36 +51,36 @@ const DashboardPage = () => {
   return (
     <React.Fragment>
       <CssBaseline />
-        {/* Hero unit */}
-        <div
-          className={classes.heroContent}
-          style={{ backgroundColor: "transparent", position: "relative" }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-            >
-              Explore
-            </Typography>
-            <Grid container spacing={2} justifyContent="center">
-              <EventFilters />
-            </Grid>
-          </Container>
-          <ParticlesBg type="random" bg={true} />
-        </div>
-            <EventList />
-            <Fab
-            size="small"
-            className={classes.fab}
-            component="span"
-            aria-label="add"
+      {/* Hero unit */}
+      <div
+        className={classes.heroContent}
+        style={{ backgroundColor: "transparent", position: "relative" }}
+      >
+        <Container maxWidth="sm">
+          <Typography
+            component="h1"
+            variant="h2"
+            align="center"
+            color="textPrimary"
+            gutterBottom
           >
-            <AddIcon />
-          </Fab>
+            Explore
+          </Typography>
+          <Grid container spacing={2} justifyContent="center">
+            <EventFilters />
+          </Grid>
+          <ParticlesBg type="random" bg={true} />
+        </Container>
+      </div>
+      <EventList />
+      <Fab
+        size="small"
+        className={classes.fab}
+        component="span"
+        aria-label="add"
+      >
+        <AddIcon />
+      </Fab>
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>

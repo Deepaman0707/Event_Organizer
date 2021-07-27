@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { startLogin } from "./../../actions/auth";
 import isEmail from "validator/lib/isEmail";
 import Link from "react-router-dom/Link";
+import LoadingPage from "../Wrappers/LoadingPage";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -15,7 +16,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import { CircularProgress } from "@material-ui/core";
 
 import { faGoogle, faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -69,7 +70,8 @@ export const LoginPage = ({ startLogin, error, unsetError, loading }) => {
   };
   return (
     <div>
-      {loading && <div className="spinner"></div>}
+      {loading ? <CircularProgress/> : <div></div>}
+        {/* {loading && <ClimbingBoxLoader color={color} loading={loading} />} */}
       <Container className="main" component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
