@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Wrappers/Header';
 import jwtDecode from 'jwt-decode';
+import SideMenu from '../components/Wrappers/SideMenu';
 import ModalDialog from '../components/CreateEventForm/AddEventForm'; 
 
 export const PrivateRoute = ({
@@ -27,10 +28,11 @@ export const PrivateRoute = ({
       component={(props) =>
         isAuthenticated === true ? (
           <div>
-            <Header
+            <SideMenu component={Component} />
+            {/* <Header
               handleOpen={handleOpen}
             />
-            <Component {...props} />
+            <Component {...props} /> */}
             <ModalDialog open={open} handleClose={handleClose} />
           </div>
         ) : (

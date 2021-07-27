@@ -4,6 +4,7 @@ import EventListItem from "./EventListItem";
 import selectEvents from "./../../selectors/events";
 import Link from "react-router-dom/Link";
 
+import { ImageList } from "@material-ui/core";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -13,14 +14,13 @@ import Container from "@material-ui/core/Container";
 import Tilt from "react-tilt";
 
 const useStyles = makeStyles((theme) => ({
-  card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
   grid: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+  },
+  imageList: {
+    // Promote the list into its own layer in Chrome. This cost memory, but helps keep FPS high.
+    transform: "translateZ(0)",
   },
   image: {
     position: "relative",
@@ -94,19 +94,16 @@ export const EventList = (props) => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.grid} maxWidth="md">
-      <Grid container spacing={1}>
+    <Container className={classes.grid}>
+      <ImageList rowHeight={200} gap={1} className={classes.imageList} cols={3}>
         {props.events.length === 0 ? (
           <p>No Events</p>
         ) : (
           props.events.map((event) => {
             return (
-              <Grid item key={event.id} xs={12} sm={6} md={4}>
+              <Grid item key={event.id} xs={6} sm={6} md={4}>
                 <Tilt>
-                  <Link
-                    className="list-card__body-title"
-                    to={`/event/${event.id || event.eventId}`}
-                  >
+                  <Link to={`/event/${event.id || event.eventId}`}>
                     <ButtonBase
                       focusRipple
                       key={event.eventName}
@@ -141,7 +138,7 @@ export const EventList = (props) => {
             );
           })
         )}
-      </Grid>
+      </ImageList>
     </Container>
   );
 };
