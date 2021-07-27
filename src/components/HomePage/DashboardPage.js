@@ -11,7 +11,10 @@ import Link from '@material-ui/core/Link'
 import ParticlesBg from 'particles-bg'
 import AddIcon from '@material-ui/icons/Add'
 import Fab from '@material-ui/core/Fab'
-import ModalDialog from '../CreateEventForm/AddEventForm'
+
+import Popup from '../Wrappers/Popup'
+import AddEventForm from '../CreateEventForm/AddEventForm'
+// import ModalDialog from '../CreateEventForm/AddEventForm'
 
 function Copyright() {
   return (
@@ -92,7 +95,7 @@ const DashboardPage = () => {
       >
         <AddIcon />
       </Fab>
-      <ModalDialog open={open} handleClose={handleClose} />
+      <Popup open={open} handleClose={handleClose} componenet={AddEventForm}/>
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant='h6' align='center' gutterBottom>

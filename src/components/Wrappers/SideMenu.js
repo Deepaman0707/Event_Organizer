@@ -17,7 +17,10 @@ import clsx from 'clsx'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import AddIcon from '@material-ui/icons/Add'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import ModalDialog from '../CreateEventForm/AddEventForm'
+
+import Popup from './Popup'
+import AddEventForm from '../CreateEventForm/AddEventForm'
+
 import UserDetails from '../UserDetails/UserDetails'
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted'
 import { Link } from 'react-router-dom'
@@ -294,7 +297,7 @@ const SideMenu = ({ component: Component }) => {
         <Toolbar variant='dense' />
         <Component />
       </main>
-      <ModalDialog open={openForm} handleClose={handleClose} />
+      <Popup open={openForm} handleClose={handleClose} componenet={AddEventForm}/>
     </div>
   )
 }

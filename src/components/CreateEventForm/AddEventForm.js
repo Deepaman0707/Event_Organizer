@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import DetailsPage from "./DetailsPage";
 import DateAndTime from "./DateAndTime";
 import Review from "./Review";
-import Dialog from "@material-ui/core/Dialog";
+
 
 import defaultImage from "../../assets/empty.jpg";
 
@@ -169,15 +169,4 @@ const AddEventForm = ({ handleClose }) => {
   );
 };
 
-// Pop-up
-const ModalDialog = ({ open, handleClose }) => {
-  return (
-    // props received from App.js
-
-    <Dialog open={open} onClose={handleClose}>
-      <AddEventForm handleClose={handleClose} />
-    </Dialog>
-  );
-};
-
-export default ModalDialog;
+export default AddEventForm;
