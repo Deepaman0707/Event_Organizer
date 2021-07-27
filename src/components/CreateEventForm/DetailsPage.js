@@ -12,8 +12,9 @@ import defaultImage from "../../assets/empty.jpg";
 const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9,
-    marginTop: "30",
+    paddingTop: '56.25%', // 16:9,
+    marginTop: '30',
+    marginBottom: '50px'
   },
   card: {
     padding: theme.spacing(2),
@@ -23,21 +24,17 @@ const useStyles = makeStyles((theme) => ({
   },
   reset: {
     margin: 0,
-    top: 20,
-    left: 20,
-    bottom: "auto",
-    right: "auto",
-    position: "absolute",
+    left: '53%',
+    top: '57%',
+    position: 'absolute',
   },
   fab: {
+    top:'57%',
     margin: 0,
-    top: "auto",
-    right: 20,
-    bottom: 20,
-    left: "auto",
-    position: "absolute",
+    left: '40%',
+    position: 'absolute',
   },
-}));
+}))
 
 const DetailsPage = (props) => {
   const classes = useStyles();
