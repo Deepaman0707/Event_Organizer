@@ -39,7 +39,7 @@ const DashboardPage = () => {
       <ParticleBgSection title={'Explore'} page={'Dashboard'}/>
       <EventList />
       <Fab
-        size='small'
+        size='large'
         className={classes.fab}
         component='span'
         aria-label='add'

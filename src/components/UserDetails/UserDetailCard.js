@@ -4,7 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
+import { Fab } from "@material-ui/core";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
 import { useBlogTextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/blog";
 import { useOverShadowStyles } from "@mui-treasury/styles/shadow/over";
@@ -21,7 +22,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     overflow: "initial",
     background: "#ffffff",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column", //Probably this is the reason for the button noyt working properly
     alignItems: "center",
     paddingBottom: spacing(2),
     [breakpoints.up("md")]: {
@@ -57,24 +58,30 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
       opacity: 0.5,
     },
   },
+  fab: {
+    margin: 0,
+    top: "auto",
+    right: 20,
+    bottom: 20,
+    left: "auto",
+    position: "fixed",
+  },
   content: {
     padding: 24,
-  },
-  cta: {
-    marginTop: 24,
-    textTransform: "initial",
   },
 }));
 
 export const UserDetailCard = React.memo(function BlogCard() {
-  const styles = useStyles();
+  const classes = useStyles();
   const { button: buttonStyles, ...contentStyles } =
     useBlogTextInfoContentStyles();
-  const shadowStyles = useOverShadowStyles();
   return (
-    <Card className={cx(styles.root, shadowStyles.root)}>
+    <Card className={classes.root}>
+      <Fab variant="extended" className={cx(classes.fab, buttonStyles)}>
+        Edit
+      </Fab>
       <CardMedia
-        className={styles.media}
+        className={classes.media}
         image={
           "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Git_icon.svg/2000px-Git_icon.svg.png"
         }
@@ -88,7 +95,6 @@ export const UserDetailCard = React.memo(function BlogCard() {
             "Git is a distributed version control system. Every dev has a working copy of the code and..."
           }
         />
-        <Button className={buttonStyles}>Read more</Button>
       </CardContent>
     </Card>
   );

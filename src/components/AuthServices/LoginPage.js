@@ -70,8 +70,21 @@ export const LoginPage = ({ startLogin, error, unsetError, loading }) => {
   };
   return (
     <div>
-      {loading ? <CircularProgress/> : <div></div>}
-        {/* {loading && <ClimbingBoxLoader color={color} loading={loading} />} */}
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      ) : (
+        <div></div>
+      )}
+      {/* {loading && <ClimbingBoxLoader color={color} loading={loading} />} */}
       <Container className="main" component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
