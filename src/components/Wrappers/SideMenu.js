@@ -26,16 +26,16 @@ import { Avatar} from "@material-ui/core";
 import { connect } from 'react-redux'
 import { startLogout } from './../../actions/auth'
 
-const drawerWidth = 84;
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    display: 'flex',
   },
   appBar: {
-    backgroundColor: "#121212",
+    backgroundColor: '#121212',
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -51,38 +51,35 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  hide: {
-    display: "none",
-  },
+
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: "nowrap",
+    whiteSpace: 'nowrap',
   },
   drawerOpen: {
-    background: "#36338E",
+    background: '#36338E',
     width: drawerWidth,
-    transition: theme.transitions.create("width", {
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerClose: {
-    display: "none",
-    background: "#36338E",
-    transition: theme.transitions.create("width", {
+    background: '#36338E',
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: "hidden",
+    overflowX: 'hidden',
     width: theme.spacing(7) + 1,
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9) + 1,
     },
   },
   listItemText: {
-    fontSize: "15px",
-    marginLeft: "15%",
+    fontSize: '15px',
+    marginLeft: '15%',
   },
   content: {
     flexGrow: 1,
@@ -90,48 +87,43 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-    color: "#fff",
-    opacity: "87%",
+    color: '#fff',
+    opacity: '87%',
   },
   icon: {
-    fontSize: "25px",
-    marginLeft: "10%",
-    color: "#fff",
-    opacity: "87%",
+    fontSize: '25px',
+    marginLeft: '10%',
+    color: '#fff',
+    opacity: '87%',
   },
   large: {
-    top: "5vh",
+    top: '5vh',
     width: theme.spacing(7),
     height: theme.spacing(7),
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 
   Profile: {
-    top: "10vh",
-    position: "absolute",
-    fontSize: "25px",
-    alignContent: "center",
+    top: '10vh',
+    position: 'absolute',
+    fontSize: '25px',
+    alignContent: 'center',
   },
 
   AddEvent: {
-    top: "37vh",
-    position: "relative",
+    marginTop: '200%',
+    position: 'relative',
   },
 
   MyEvent: {
-    top: "38vh",
-    position: "relative",
+    position: 'relative',
   },
 
-  nested: {
-    top: "38vh",
-    paddingLeft: theme.spacing(4),
-  },
   logout: {
-    top: "70vh",
-    position: "relative",
+    marginTop: '500%',
+    position: 'relative',
   },
-}));
+}))
 
 const SideMenu = ({ component: Component, logout }) => {
   const classes = useStyles();
