@@ -145,7 +145,7 @@ export const UserEventList = (props) => {
         //   >
             // {() =>
             props.events.map((event) => {
-                console.log('Hello');
+                // console.log('Hello');
                 return (
                   <Grid item key={event.id} xs={6} sm={6} md={4}>
                     <Tilt>

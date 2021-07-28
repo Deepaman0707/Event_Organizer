@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { startSignUp } from "./../../actions/auth";
 import isEmail from "validator/lib/isEmail";
 
+import { CircularProgress } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -74,7 +75,20 @@ export const LoginPage = ({
   };
   return (
     <div>
-      {loading && <div class="spinner"></div>}
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      ) : (
+        <div></div>
+      )}
       <Container className="main" component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
