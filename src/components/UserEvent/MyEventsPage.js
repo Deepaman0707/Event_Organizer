@@ -1,10 +1,10 @@
 import React from 'react';
-import MyEventList from './MyEventList';
+import UserEventList from './UserEventList';
 import UserDetails from '../UserDetails/UserDetails';
 const MyBlogsPage = (props) => (
     <div className="my-blogs">
         <div className="my-blogs__blogs">
-            <MyEventList handle={props.match.params.handle}/>
+            <UserEventList handle={props.match.params.handle}/>
         </div>
         <div className="my-blogs__user">
             <UserDetails handle={props.match.params.handle}/>

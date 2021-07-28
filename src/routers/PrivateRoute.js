@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Wrappers/Header';
 import jwtDecode from 'jwt-decode';
-import ModalDialog from '../components/CreateEventForm/AddEventForm'; 
+
+import Popup from '../components/Wrappers/Popup';
+import AddEventForm from '../components/CreateEventForm/AddEventForm';
 
 export const PrivateRoute = ({
   login,
@@ -31,7 +33,7 @@ export const PrivateRoute = ({
               handleOpen={handleOpen}
             />
             <Component {...props} />
-            <ModalDialog open={open} handleClose={handleClose} />
+            <Popup open={open} handleClose={handleClose} componenet={AddEventForm}/>
           </div>
         ) : (
           <Redirect to='/' />

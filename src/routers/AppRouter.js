@@ -10,6 +10,7 @@ import UserDetailsPage from '../components/UserDetails/UserDetailsPage';
 import EditEventPage from '../components/UserEvent/EditEventPage';
 import MyEventsPage from '../components/UserEvent/MyEventsPage';
 import EditUserDetails from '../components/UserDetails/EditUserDetails';
+import UserEventDashboard from '../components/UserEvent/UserEventDashboard';
 
 import LoadingPage from '../components/Wrappers/LoadingPage';
 
@@ -27,6 +28,7 @@ const AppRouter = () => (
         <PublicRoute path="/signup" component={SignupPage} />
         <Route path="/loading" component={LoadingPage} />
         <HeaderlessRoute path="/dashboard" component={DashboardPage} />
+        <HeaderlessRoute path="/me/events" component={UserEventDashboard} />
         <PrivateRoute path='/event/:id' component={EventCard}></PrivateRoute>
         <PrivateRoute path='/edit/:id' component={EditEventPage}></PrivateRoute>
         <PrivateRoute path='/user/:handle' component={MyEventsPage}></PrivateRoute>
