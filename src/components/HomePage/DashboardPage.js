@@ -7,6 +7,7 @@ import Fab from '@material-ui/core/Fab'
 
 import Popup from '../Wrappers/Popup'
 import AddEventForm from '../CreateEventForm/AddEventForm'
+import EventDetails from '../EventDetails/EventDetails'
 
 import ParticleBgSection from '../Wrappers/ParticleBgSection'
 
@@ -24,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
 // import FamousCard from './FamousCard';
 const DashboardPage = () => {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
+  const [openEvent, setOpenEvent] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true)
@@ -34,10 +36,18 @@ const DashboardPage = () => {
     setOpen(false)
   }
 
+  const handleEventOpen = () => {
+    setOpenEvent(true)
+  }
+
+  const handleEventClose = () => {
+    setOpenEvent(false)
+  }
+
   return (
     <React.Fragment>
       <ParticleBgSection title={'Explore'} page={'Dashboard'}/>
-      <EventList />
+      <EventList handleEventOpen={handleEventOpen}/>
       <Fab
         size='large'
         className={classes.fab}
@@ -48,6 +58,7 @@ const DashboardPage = () => {
         <AddIcon />
       </Fab>
       <Popup open={open} handleClose={handleClose} componenet={AddEventForm}/>
+      <Popup open={openEvent} handleClose={handleEventClose} componenet={EventDetails}/>
     </React.Fragment>
   )
 }

@@ -11,7 +11,7 @@ import EditEventPage from '../components/UserEvent/EditEventPage';
 import MyEventsPage from '../components/UserEvent/MyEventsPage';
 import EditUserDetails from '../components/UserDetails/EditUserDetails';
 import UserEventDashboard from '../components/UserEvent/UserEventDashboard';
-
+import EventDetails from '../components/EventDetails/EventDetails';
 import LoadingPage from '../components/Wrappers/LoadingPage';
 
 import PrivateRoute from './PrivateRoute';
@@ -28,8 +28,9 @@ const AppRouter = () => (
         <PublicRoute path="/signup" component={SignupPage} />
         <Route path="/loading" component={LoadingPage} />
         <HeaderlessRoute path="/dashboard" component={DashboardPage} />
+        <HeaderlessRoute path="/event" component={EventDetails} />
         <HeaderlessRoute path="/me/events" component={UserEventDashboard} />
-        <PrivateRoute path='/event/:id' component={EventCard}></PrivateRoute>
+        {/* <PrivateRoute path='/event/:id' component={EventCard}></PrivateRoute> */}
         <PrivateRoute path='/edit/:id' component={EditEventPage}></PrivateRoute>
         <PrivateRoute path='/user/:handle' component={MyEventsPage}></PrivateRoute>
         <PrivateRoute path='/edit' component={EditUserDetails} exact={true}></PrivateRoute>

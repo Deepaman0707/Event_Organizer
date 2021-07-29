@@ -4,6 +4,9 @@ import EventListItem from "./EventListItem";
 import selectEvents from "./../../selectors/events";
 import Link from "react-router-dom/Link";
 
+import Popup from "../Wrappers/Popup";
+import EventDetails from "../EventDetails/EventDetails";
+
 import { ImageList } from "@material-ui/core";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
@@ -90,20 +93,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const EventList = (props) => {
+// /${event.id || event.eventId}
+
+export const EventList = ({events, handleEventOpen}) => {
   const classes = useStyles();
 
   return (
     <Container className={classes.grid}>
       <ImageList rowHeight={200} gap={1} className={classes.imageList} cols={3}>
-        {props.events.length === 0 ? (
+        {events.length === 0 ? (
           <p>No Events</p>
         ) : (
-          props.events.map((event) => {
+          events.map((event) => {
             return (
               <Grid item key={event.id} xs={6} sm={6} md={4}>
                 <Tilt>
-                  <Link to={`/event/${event.id || event.eventId}`}>
+                  {/* <Link to={`/event`}> */}
                     <ButtonBase
                       focusRipple
                       key={event.eventName}
@@ -112,6 +117,7 @@ export const EventList = (props) => {
                       style={{
                         width: "100%",
                       }}
+                      onClick={handleEventOpen}
                     >
                       <span
                         className={classes.imageSrc}
@@ -132,7 +138,7 @@ export const EventList = (props) => {
                         </Typography>
                       </span>
                     </ButtonBase>
-                  </Link>
+                  {/* </Link> */}
                 </Tilt>
               </Grid>
             );
