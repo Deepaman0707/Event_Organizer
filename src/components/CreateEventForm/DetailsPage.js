@@ -119,7 +119,6 @@ const DetailsPage = (props) => {
           props.handleChange(e);
         }}
         fullWidth
-        autoComplete="given-name"
       />
       <TextField
         required
@@ -132,7 +131,6 @@ const DetailsPage = (props) => {
           props.handleChange(e);
         }}
         fullWidth
-        autoComplete="family-name"
       />
     </div>
   );
