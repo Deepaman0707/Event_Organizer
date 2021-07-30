@@ -148,47 +148,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const EventDetails = (props) => {
+const EventDetails = ({ eventID, event, userHandle, checkLike, likeEvent, unLikeEvent, checkLikeEvent, registerEvent, unRegisterEvent}) => {
   const classes = useStyles()
-  // const id = props.match.params.id
 
   const [expanded, setExpanded] = React.useState(false)
-  // const [likeCount, setLikeCount] = useState(props.event.likeCount)
-  // const [checkLike, setCheckLike] = useState(props.checkLike)
-  // const [checkRegister, setRegister] = useState(
-  //   props.event.members.hasOwnProperty(props.userHandle)
-  // )
+  const [likeCount, setLikeCount] = useState(event.likeCount)
+  const [like, setLike] = useState(checkLike)
+  const [checkRegister, setRegister] = useState(
+    event.members.hasOwnProperty(userHandle)
+  )
 
-  // useEffect(() => {
-  //   props.checkLikeEvent(id).then((data) => {
-  //     setCheckLike(data)
-  //   })
-  // }, [])
+  useEffect(() => {
+    checkLikeEvent(eventID).then((data) => {
+      setLike(data)
+    })
+  }, [])
 
-  // useEffect(() => {
-  //   setRegister(props.event.members.hasOwnProperty(props.userHandle))
-  // }, [checkRegister])
+  useEffect(() => {
+    setRegister(event.members.hasOwnProperty(userHandle))
+  }, [checkRegister])
 
-  // const onClickLike = () => {
-  //   props.likeEvent(id).then(() => {
-  //     setLikeCount(likeCount + 1)
-  //     setCheckLike(true)
-  //   })
-  // }
+  const onClickLike = () => {
+    likeEvent(eventID).then(() => {
+      setLikeCount(likeCount + 1)
+      setLike(true)
+    })
+  }
 
-  // const onClickUnLike = () => {
-  //   props.unLikeEvent(id).then(() => {
-  //     setLikeCount(likeCount - 1)
-  //     setCheckLike(false)
-  //   })
-  // }
+  const onClickUnLike = () => {
+    unLikeEvent(eventID).then(() => {
+      setLikeCount(likeCount - 1)
+      setLike(false)
+    })
+  }
 
-  // const startRegisterEvent = () => {
-  //   props.registerEvent(id)
-  // }
-  // const startUnRegisterEvent = () => {
-  //   props.unRegisterEvent(id)
-  // }
+  const startRegisterEvent = () => {
+    registerEvent(eventID)
+  }
+  const startUnRegisterEvent = () => {
+    unRegisterEvent(eventID)
+  }
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
@@ -199,39 +198,39 @@ const EventDetails = (props) => {
       <Card className={classes.root}>
         <CardHeader color='warning' stats icon>
           <CardIcon color='warning'>
-            {/* <img src={props.userImageUrl} />
-            <Link to={`../user/${props.event.userHandle}`}></Link> */}
+            <img src={event.userImageUrl} />
+            <Link to={`../user/${event.userHandle}`}></Link>
           </CardIcon>
           <p className={classes.cardCategory}>Used Handle</p>
           <h3 className={classes.cardTitle}>
             created At
-            {/* props.event.createdAt */}
+            {event.createdAt}
           </h3>
         </CardHeader>
         <CardContent>
-          {/* {checkLike ? ( */}
+          {checkLike ? (
           <Button
             title='unlike?'
             variant='text'
             color='secondary'
-            size='larger'
-            // onClick={onClickUnLike}
+            size='large' //larger no size
+            onClick={onClickUnLike}
           >
             <FavoriteBorderIcon />
-            {/* {likeCount} */}
+            {likeCount}
           </Button>
-          {/* ) : ( */}
+          ) : (
           <Button
             title='like?'
             variant='text'
             color='secondary'
-            size='20px'
-            // onClick={onClickLike}
+            size='large' //can't give pixels. if you want to give pixels use styles
+            onClick={onClickLike}
           >
             <FavoriteIcon />
-            {/* {likeCount} */}
+            {likeCount}
           </Button>
-          {/* )} */}
+          )}
         </CardContent>
         <CardFooter stats>
           <div className={classes.stats}>
@@ -254,7 +253,7 @@ const EventDetails = (props) => {
               <CardContent>
                 <p>
                   Event Description
-                  {/* {props.event.description} */}
+                  {event.description}
                 </p>
               </CardContent>
               <Card chart>
@@ -303,46 +302,46 @@ const EventDetails = (props) => {
                   <div className={classes.stats}>
                     <AccessTime />
                     time and date
-                    {/* {' ' +
-                      props.event.startDate +
-                      (props.event.endDate !== props.event.startDate
-                        ? ' - ' + props.event.endDate
-                        : '')} */}
+                    {' ' +
+                      event.startDate +
+                      (event.endDate !== event.startDate
+                        ? ' - ' + event.endDate
+                        : '')}
                   </div>
                   <div>
                     <p>
                       venue:
-                      {/* {props.event.location} */}
+                      {event.location}
                     </p>
                     <p>
                       fee:
-                      {/* {props.event.fee} */}
+                      {event.fee}
                     </p>
                   </div>
                 </CardFooter>
               </Card>
             </Grid>
           </Grid>
-          {/* {!checkRegister && ( */}
+          {!checkRegister && (
           <Button
             variant='contained'
             color='primary'
             className={classes.btn}
-            // onClick={startRegisterEvent}
+            onClick={startRegisterEvent}
           >
             Register
           </Button>
-          {/* )} */}
-          {/* {checkRegister && ( */}
+          )}
+          {checkRegister && (
           <Button
             variant='contained'
             color='primary'
             className={classes.btn}
-            // onClick={startUnRegisterEvent}
+            onClick={startUnRegisterEvent}
           >
             Unregister
           </Button>
-          {/* )} */}
+          )}
         </Collapse>
       </Card>
       {/* <Grid container className={classes.grid}>
@@ -413,19 +412,17 @@ const EventDetails = (props) => {
     </div>
   )
 }
-// const mapDispatchToProps = (dispatch) => ({
-//   likeEvent: (eventId) => dispatch(setLikeEvent(eventId)),
-//   unLikeEvent: (eventId) => dispatch(setUnLikeEvent(eventId)),
-//   checkLikeEvent: (eventId) => dispatch(setCheckLikeEvent(eventId)),
-//   registerEvent: (eventId) => dispatch(startRegisterEvent(eventId)),
-//   unRegisterEvent: (eventId) => dispatch(startUnRegisterEvent(eventId)),
-// })
+const mapDispatchToProps = (dispatch) => ({
+  likeEvent: (eventId) => dispatch(setLikeEvent(eventId)),
+  unLikeEvent: (eventId) => dispatch(setUnLikeEvent(eventId)),
+  checkLikeEvent: (eventId) => dispatch(setCheckLikeEvent(eventId)),
+  registerEvent: (eventId) => dispatch(startRegisterEvent(eventId)),
+  unRegisterEvent: (eventId) => dispatch(startUnRegisterEvent(eventId)),
+})
 
-// const mapStateToProps = (state, props) => ({
-//   event: state.events.find((event) => event.id === props.match.params.id),
-//   userHandle: state.user.userHandle,
-//   checkLike: state.user.checkLike,
-// })
-export default EventDetails
-
-// connect(mapStateToProps, mapDispatchToProps)
+const mapStateToProps = (state, props) => ({
+  event: state.events.find((event) => event.id === props.eventID),
+  userHandle: state.user.userHandle,
+  checkLike: state.user.checkLike,
+})
+export default connect(mapStateToProps, mapDispatchToProps)(EventDetails)
