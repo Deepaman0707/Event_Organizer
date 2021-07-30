@@ -30,7 +30,7 @@ export const PrivateRoute = ({
       component={(props) =>
         isAuthenticated === true ? (
           <div>
-            <SideMenu component={Component} />
+            <SideMenu component={() => (<Component {...props} />)} />
             <Popup open={open} handleClose={handleClose} componenet={AddEventForm}/>
           </div>
         ) : (

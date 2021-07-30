@@ -1,4 +1,6 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {startGetUserDetails} from './../../actions/user';
+
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -22,6 +24,7 @@ import UserDetailCard from "../UserDetails/UserDetailCard";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import { Link } from "react-router-dom";
 import { Avatar} from "@material-ui/core";
+import Footer from "./Footer"
 
 import { connect } from 'react-redux'
 import { startLogout } from './../../actions/auth'
@@ -125,12 +128,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SideMenu = ({ component: Component, logout }) => {
+const SideMenu = ({ component: Component, logout, userHandle, getUserDetails, user}) => {
   const classes = useStyles();
   
   const [open, setOpen] = React.useState(false);
   const [openProfile, setOpenProfile] = React.useState(false);
   const [openForm, setOpenForm] = React.useState(false);
+
+  const [userData, setUserData] = useState([]);
+    useEffect(() => {
+        console.log(userHandle);
+        // if(userHandle){ keep it, unsure what to do
+            getUserDetails(userHandle).then(data => {
+                setUserData(data.user);
+            });
+        // }
+        // console.log(userHandle);
+
+    },[])
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -202,7 +217,7 @@ const SideMenu = ({ component: Component, logout }) => {
       <IconButton onClick={handleOpenProfile}>
         <Avatar
           alt="Remy Sharp"
-          src="public\images\logo.png" // yaha userhandle ka image aayega
+          src={userData.imageURL || user.imageURL} // yaha userhandle ka image aayega
           className={classes.large}
         />
       </IconButton>
@@ -219,7 +234,7 @@ const SideMenu = ({ component: Component, logout }) => {
             </ListItemIcon>
           </ListItem>
 
-          <Link to="/me/events">
+          <Link to={`/events/${userData.handle || user.handle}`}>
             <ListItem
               className={classes.MyEvent}
               button
@@ -264,11 +279,13 @@ const SideMenu = ({ component: Component, logout }) => {
 
 const mapStateToProps = (state) => ({
   notifications: state.user.notifications,
+  user: state.user.user,
   userHandle: state.user.userHandle,
 })
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(startLogout()),
+    getUserDetails: (handle) => dispatch(startGetUserDetails(handle)), 
   }
 }
 
