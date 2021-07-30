@@ -27,6 +27,7 @@ const DashboardPage = () => {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false);
   const [openEvent, setOpenEvent] = React.useState(false);
+  const [eventID, setEventID] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true)
@@ -44,10 +45,18 @@ const DashboardPage = () => {
     setOpenEvent(false)
   }
 
+  const handleEventID = (eId) => {
+    setEventID(eId)
+  }
+
+  const getEventDetails = () => (
+    <EventDetails eventID={eventID} />
+  )
+
   return (
     <React.Fragment>
       <ParticleBgSection title={'Explore'} page={'Dashboard'}/>
-      <EventList handleEventOpen={handleEventOpen}/>
+      <EventList handleEventOpen={handleEventOpen} setEventID={handleEventID}/>
       <Fab
         size='large'
         className={classes.fab}
@@ -58,7 +67,7 @@ const DashboardPage = () => {
         <AddIcon />
       </Fab>
       <Popup open={open} handleClose={handleClose} componenet={AddEventForm}/>
-      <Popup open={openEvent} handleClose={handleEventClose} componenet={EventDetails}/>
+      <Popup open={openEvent} handleClose={handleEventClose} componenet={getEventDetails}/>
     </React.Fragment>
   )
 }

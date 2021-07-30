@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
 
 // /${event.id || event.eventId}
 
-export const EventList = ({events, handleEventOpen}) => {
+export const EventList = ({events, handleEventOpen, setEventID}) => {
   const classes = useStyles();
 
   return (
@@ -108,7 +108,6 @@ export const EventList = ({events, handleEventOpen}) => {
             return (
               <Grid item key={event.id} xs={6} sm={6} md={4}>
                 <Tilt>
-                  {/* <Link to={`/event`}> */}
                     <ButtonBase
                       focusRipple
                       key={event.eventName}
@@ -117,7 +116,12 @@ export const EventList = ({events, handleEventOpen}) => {
                       style={{
                         width: "100%",
                       }}
-                      onClick={handleEventOpen}
+                      onClick={() => {
+                        handleEventOpen()
+                        setEventID(event.id || event.eventId)
+                        // console.log(event.id || event.eventId)
+                        // console.log(`${event.id || event.eventId}`)
+                      }}
                     >
                       <span
                         className={classes.imageSrc}
@@ -138,7 +142,6 @@ export const EventList = ({events, handleEventOpen}) => {
                         </Typography>
                       </span>
                     </ButtonBase>
-                  {/* </Link> */}
                 </Tilt>
               </Grid>
             );
