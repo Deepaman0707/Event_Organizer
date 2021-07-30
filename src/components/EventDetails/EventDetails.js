@@ -199,9 +199,11 @@ const EventDetails = ({ eventID, event, userHandle, checkLike, likeEvent, unLike
         <CardHeader color='warning' stats icon>
           <CardIcon color='warning'>
             <img src={event.userImageUrl} />
-            <Link to={`../user/${event.userHandle}`}></Link>
           </CardIcon>
+          <Link to={`../user/${event.userHandle}`}>
+
           <p className={classes.cardCategory}>Used Handle</p>
+          </Link>
           <h3 className={classes.cardTitle}>
             created At
             {event.createdAt}

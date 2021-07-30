@@ -57,7 +57,7 @@ export const startGetUserHandle =  () => {
 export const startGetUserDetails =  (userHandle) => {
     return (dispatch) => {
         dispatch({type: 'LOADING_UI'});
-        console.log()
+        // console.log()
         return axios.get(`https://us-central1-sem5proj-19434.cloudfunctions.net/api/user/${userHandle}`).then(({data}) => {
             console.log(data);
             const userData = {

@@ -29,10 +29,10 @@ const AppRouter = () => (
         <Route path="/loading" component={LoadingPage} />
         <HeaderlessRoute path="/dashboard" component={DashboardPage} />
         <HeaderlessRoute path="/event" component={EventDetails} />
-        <HeaderlessRoute path="/me/events" component={UserEventDashboard} />
+        <HeaderlessRoute path="/events/:handle" component={UserEventDashboard} />
         {/* <PrivateRoute path='/event/:id' component={EventCard}></PrivateRoute> */}
         <PrivateRoute path='/edit/:id' component={EditEventPage}></PrivateRoute>
-        <PrivateRoute path='/user/:handle' component={MyEventsPage}></PrivateRoute>
+        <HeaderlessRoute path='/user/:handle' component={MyEventsPage} />
         <PrivateRoute path='/edit' component={EditUserDetails} exact={true}></PrivateRoute>
         <PrivateRoute path='/me' component={MyEventsPage} exact={true}></PrivateRoute>
         <Route component={NotFoundPage} />
