@@ -9,6 +9,8 @@ import Store from '@material-ui/icons/Store'
 import DateRange from '@material-ui/icons/DateRange'
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import AccessTime from '@material-ui/icons/AccessTime'
+import LocationOnIcon from '@material-ui/icons/LocationOn'
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
 //@material-ui/core
 import Grid from '@material-ui/core/Grid'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
@@ -24,6 +26,7 @@ import clsx from 'clsx'
 import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { CardMedia } from '@material-ui/core'
 
 import { dailySalesChart, emailsSubscriptionChart } from '../../assets/charts'
 import { connect } from 'react-redux'
@@ -34,7 +37,7 @@ import {
   startRegisterEvent,
   startUnRegisterEvent,
 } from './../../actions/events'
-
+import { Typography } from '@material-ui/core'
 import {
   successColor,
   whiteColor,
@@ -42,14 +45,15 @@ import {
   hexToRgb,
 } from '../../assets/UIItems'
 import { Button } from '@material-ui/core'
+import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '500px',
-    paddingLeft: '10px',
-    paddingRight: '10px',
+    width: '600px',
+    paddingTop: '10px',
+    paddingLeft: '15px',
+    paddingRight: '15px',
     borderRadius: 0,
-    OverflowEvent: 'scroll',
   },
 
   successText: {
@@ -80,9 +84,6 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: '3px',
     },
   },
-  content: {
-    padding: theme.spacing(2),
-  },
   grid: {
     margin: '0 -15px !important',
     width: 'unset',
@@ -93,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
   cardCategory: {
     color: grayColor[0],
     margin: '0',
-    fontSize: '14px',
+    fontSize: '24px',
     marginTop: '0',
     paddingTop: '10px',
     marginBottom: '0',
@@ -110,6 +111,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '0px',
     minHeight: 'auto',
     fontWeight: '300',
+    fontSize: '15px',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: '3px',
     textDecoration: 'none',
@@ -144,11 +146,44 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   btn: {
-    marginBottom: theme.spacing(2),
+    margin: theme.spacing(2),
+    alignSelf: 'center',
+  },
+  content: {
+    padding: 0,
+  },
+  btnLike: {
+    marginLeft: '380px',
+    position: 'absolute',
+    fontSize: '15px',
+  },
+  desc: {
+    padding: theme.spacing(2),
+  },
+  handle: {
+    paddingTop: theme.spacing(2),
+  },
+  time: {
+    margin: '15px',
+    padding: theme.spacing(2),
+  },
+  register:{
+    display: 'flex',
+    justifyContent: 'center'
   },
 }))
 
-const EventDetails = ({ eventID, event, userHandle, checkLike, likeEvent, unLikeEvent, checkLikeEvent, registerEvent, unRegisterEvent}) => {
+const EventDetails = ({
+  eventID,
+  event,
+  userHandle,
+  checkLike,
+  likeEvent,
+  unLikeEvent,
+  checkLikeEvent,
+  registerEvent,
+  unRegisterEvent,
+}) => {
   const classes = useStyles()
 
   const [expanded, setExpanded] = React.useState(false)
@@ -194,159 +229,157 @@ const EventDetails = ({ eventID, event, userHandle, checkLike, likeEvent, unLike
   }
 
   return (
-    <div className={classes.content}>
-      <Card className={classes.root}>
+    <Card className={classes.root}>
+      <CardContent className={classes.content}>
         <CardHeader color='warning' stats icon>
           <CardIcon color='warning'>
-            <img src={event.userImageUrl} />
+            <img src={event.userImageUrl} width='70px' />
           </CardIcon>
           <Link to={`../user/${event.userHandle}`}>
-
-          <p className={classes.cardCategory}>Used Handle</p>
+            <Typography
+              className={classes.handle}
+              variant='h4'
+              color='secondary'
+            >
+              {event.userHandle}
+            </Typography>
           </Link>
-          <h3 className={classes.cardTitle}>
-            created At
-            {event.createdAt}
-          </h3>
+          <Typography variant='h4' color='secondary'>
+            {moment(event.createdAt).format('MMM do')}
+          </Typography>
         </CardHeader>
-        <CardContent>
-          {checkLike ? (
+        {checkLike ? (
           <Button
+            className={classes.btnLike}
             title='unlike?'
             variant='text'
             color='secondary'
-            size='large' //larger no size
+            size='large'
             onClick={onClickUnLike}
           >
-            <FavoriteBorderIcon />
+            <FavoriteBorderIcon fontSize='large' />
             {likeCount}
           </Button>
-          ) : (
+        ) : (
           <Button
+            className={classes.btnLike}
             title='like?'
             variant='text'
             color='secondary'
-            size='large' //can't give pixels. if you want to give pixels use styles
+            size='large'
             onClick={onClickLike}
           >
-            <FavoriteIcon />
+            <FavoriteIcon fontSize='large' />
             {likeCount}
           </Button>
-          )}
-        </CardContent>
-        <CardFooter stats>
-          <div className={classes.stats}>
-            <a onClick={(e) => e.preventDefault()}>Know More about the event</a>
-          </div>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label='show more'
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardFooter>
-        <Collapse in={expanded} timeout='auto' unmountOnExit>
-          <Grid container className={classes.grid}>
-            <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
-              <CardContent>
-                <p>
-                  Event Description
-                  {event.description}
+        )}
+      </CardContent>
+      <Typography className={classes.desc} variant='h6'>
+        {event.description}
+      </Typography>
+      <CardFooter stats>
+        <div className={classes.stats}>
+          <a onClick={(e) => e.preventDefault()}>Know More about the event</a>
+        </div>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label='show more'
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardFooter>
+      <Collapse in={expanded} timeout='auto' unmountOnExit>
+        <Grid container className={classes.grid}>
+          <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
+            <Card chart>
+              <CardHeader color='success'>
+                <ChartistGraph
+                  className='ct-chart'
+                  data={dailySalesChart.data}
+                  type='Line'
+                  options={dailySalesChart.options}
+                  listener={dailySalesChart.animation}
+                />
+              </CardHeader>
+              <CardBody>
+                <h4 className={classes.cardTitle}>Daily Sales</h4>
+                <p className={classes.cardCategory}>
+                  <span className={classes.successText}>
+                    <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                  </span>{' '}
+                  increase in today sales.
                 </p>
-              </CardContent>
-              <Card chart>
-                <CardHeader color='success'>
-                  <ChartistGraph
-                    className='ct-chart'
-                    data={dailySalesChart.data}
-                    type='Line'
-                    options={dailySalesChart.options}
-                    listener={dailySalesChart.animation}
-                  />
-                </CardHeader>
-                <CardBody>
-                  <h4 className={classes.cardTitle}>Daily Sales</h4>
-                  <p className={classes.cardCategory}>
-                    <span className={classes.successText}>
-                      <ArrowUpward className={classes.upArrowCardCategory} />{' '}
-                      55%
-                    </span>{' '}
-                    increase in today sales.
-                  </p>
-                </CardBody>
-              </Card>
-            </Grid>
-            <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
-              <Card chart>
-                <CardHeader color='warning'>
-                  <ChartistGraph
-                    className='ct-chart'
-                    data={emailsSubscriptionChart.data}
-                    type='Bar'
-                    options={emailsSubscriptionChart.options}
-                    responsiveOptions={
-                      emailsSubscriptionChart.responsiveOptions
-                    }
-                    listener={emailsSubscriptionChart.animation}
-                  />
-                </CardHeader>
-                <CardBody>
-                  <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-                  <p className={classes.cardCategory}>
-                    Last Campaign Performance
-                  </p>
-                </CardBody>
-                <CardFooter chart>
-                  <div className={classes.stats}>
-                    <AccessTime />
-                    time and date
-                    {' ' +
-                      event.startDate +
-                      (event.endDate !== event.startDate
-                        ? ' - ' + event.endDate
-                        : '')}
-                  </div>
-                  <div>
-                    <p>
-                      venue:
-                      {event.location}
-                    </p>
-                    <p>
-                      fee:
-                      {event.fee}
-                    </p>
-                  </div>
-                </CardFooter>
-              </Card>
-            </Grid>
+              </CardBody>
+            </Card>
           </Grid>
+          <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
+            <Card chart>
+              <CardHeader color='warning'>
+                <ChartistGraph
+                  className='ct-chart'
+                  data={emailsSubscriptionChart.data}
+                  type='Bar'
+                  options={emailsSubscriptionChart.options}
+                  responsiveOptions={emailsSubscriptionChart.responsiveOptions}
+                  listener={emailsSubscriptionChart.animation}
+                />
+              </CardHeader>
+              <CardBody>
+                <h4 className={classes.cardTitle}>Email Subscriptions</h4>
+                <p className={classes.cardCategory}>
+                  Last Campaign Performance
+                </p>
+              </CardBody>
+            </Card>
+          </Grid>
+          <Card className={classes.time}>
+            <div className={classes.stats}>
+              <AccessTime />
+              {' ' +
+                event.startDate +
+                (event.endDate !== event.startDate
+                  ? ' - ' + event.endDate
+                  : '')}
+            </div>
+            <div className={classes.stats}>
+              <LocationOnIcon />
+              {event.location}
+            </div>
+            <div className={classes.stats}>
+              <MonetizationOnIcon />
+              {event.fee}
+            </div>
+          </Card>
+        </Grid>
+        <div className={classes.register}>
           {!checkRegister && (
-          <Button
-            variant='contained'
-            color='primary'
-            className={classes.btn}
-            onClick={startRegisterEvent}
-          >
-            Register
-          </Button>
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.btn}
+              onClick={startRegisterEvent}
+            >
+              Register
+            </Button>
           )}
           {checkRegister && (
-          <Button
-            variant='contained'
-            color='primary'
-            className={classes.btn}
-            onClick={startUnRegisterEvent}
-          >
-            Unregister
-          </Button>
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.btn}
+              onClick={startUnRegisterEvent}
+            >
+              Unregister
+            </Button>
           )}
-        </Collapse>
-      </Card>
-      {/* <Grid container className={classes.grid}>
+        </div>
+      </Collapse>
+    </Card>
+    /* <Grid container className={classes.grid}>
         <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
           <CustomTabs
             title="Tasks:"
@@ -410,8 +443,7 @@ const EventDetails = ({ eventID, event, userHandle, checkLike, likeEvent, unLike
             </CardBody>
           </Card>
         </Grid>
-      </Grid> */}
-    </div>
+      </Grid> */
   )
 }
 const mapDispatchToProps = (dispatch) => ({
