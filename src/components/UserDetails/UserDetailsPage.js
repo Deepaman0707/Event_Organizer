@@ -1,5 +1,5 @@
 import React from 'react';
-import UserDetails from './UserDetails';
+import UserDetails from '../UserEvent/UserDetails';
 
 const UserDetailsPage = (props) => (
     <div className="user-details">

@@ -28,6 +28,7 @@ import PersonIcon from '@material-ui/icons/Person'
 import { Grid } from '@material-ui/core'
 import { PanoramaSharp } from '@material-ui/icons';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -70,6 +71,25 @@ const UserEventDashboard = (props) => {
     }
     console.log(handle)
   }, [])
+  const sectionHeader = () => {
+    return (
+      <div>
+        <Typography
+          component='h1'
+          variant='h2'
+          align='center'
+          color='textPrimary'
+          gutterBottom
+        >
+          My Events
+        </Typography>
+
+        <Grid container spacing={2} justifyContent='center'>
+          {/* <EventFilters /> */}
+        </Grid>
+      </div>
+    )
+  }
   const handleOpen = () => {
     setOpen(true)
   }
@@ -80,7 +100,7 @@ const UserEventDashboard = (props) => {
 
   return (
     <>
-      <ParticleBgSection title={'My Events'} />
+      <ParticleBgSection component={sectionHeader} />
       <Grid container className={classes.contain}>
         <Grid item xs={6}>
           <Card className={classes.root}>

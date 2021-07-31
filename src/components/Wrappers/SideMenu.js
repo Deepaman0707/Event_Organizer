@@ -1,35 +1,35 @@
-import React, {useEffect, useState} from "react";
-import {startGetUserDetails} from './../../actions/user';
+import React, { useEffect, useState } from 'react'
+import { startGetUserDetails } from './../../actions/user'
 
-import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import clsx from "clsx";
-import AddIcon from "@material-ui/icons/Add";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { makeStyles } from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
+import AppBar from '@material-ui/core/AppBar'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import clsx from 'clsx'
+import AddIcon from '@material-ui/icons/Add'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
-import Popup from "./Popup";
-import AddEventForm from "../CreateEventForm/AddEventForm";
-import UserDetailCard from "../UserDetails/UserDetailCard";
+import Popup from './Popup'
+import AddEventForm from '../CreateEventForm/AddEventForm'
+import UserDetailCard from '../UserDetails/UserDetailCard'
 
-import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
-import { Link } from "react-router-dom";
-import { Avatar} from "@material-ui/core";
-import Footer from "./Footer"
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted'
+import { Link } from 'react-router-dom'
+import { Avatar } from '@material-ui/core'
+import Footer from './Footer'
 
 import { connect } from 'react-redux'
 import { startLogout } from './../../actions/auth'
 
-const drawerWidth = 240;
+const drawerWidth = 250
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
+    width: theme.spacing(9) + 1,
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9) + 1,
     },
@@ -100,12 +100,10 @@ const useStyles = makeStyles((theme) => ({
     opacity: '87%',
   },
   large: {
-    top: '5vh',
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    width: '80px',
+    height: '80px',
     alignSelf: 'center',
   },
-
   Profile: {
     top: '10vh',
     position: 'absolute',
@@ -126,65 +124,69 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '500%',
     position: 'relative',
   },
+  iconBtn: {
+    marginTop: '5vh',
+
+    alignSelf: 'center',
+  },
+  username: {
+    color: 'white',
+    textAlign: 'center',
+  },
 }))
 
-const SideMenu = ({ component: Component, logout, userHandle, getUserDetails, user}) => {
-  const classes = useStyles();
-  
-  const [open, setOpen] = React.useState(false);
-  const [openProfile, setOpenProfile] = React.useState(false);
-  const [openForm, setOpenForm] = React.useState(false);
+const SideMenu = ({
+  component: Component,
+  logout,
+  userHandle,
+  getUserDetails,
+  user,
+}) => {
+  const classes = useStyles()
 
-  const [userData, setUserData] = useState([]);
-    useEffect(() => {
-        console.log(userHandle);
-        // if(userHandle){ keep it, unsure what to do
-            getUserDetails(userHandle).then(data => {
-                setUserData(data.user);
-            });
-        // }
-        // console.log(userHandle);
+  const [open, setOpen] = React.useState(false)
+  const [openProfile, setOpenProfile] = React.useState(false)
+  const [openForm, setOpenForm] = React.useState(false)
 
-    },[])
-
+  const userData = user;
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleOpen = () => {
-    setOpenForm(true);
-  };
+    setOpenForm(true)
+  }
 
   const handleClose = () => {
-    setOpenForm(false);
-  };
+    setOpenForm(false)
+  }
 
   const handleOpenProfile = () => {
-    setOpenProfile(true);
-  };
+    setOpenProfile(true)
+  }
 
   const handleCloseProfile = () => {
-    setOpenProfile(false);
-  };
+    setOpenProfile(false)
+  }
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        position='fixed'
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar styles={classes.toolbar} variant="dense">
+        <Toolbar styles={classes.toolbar} variant='dense'>
           <IconButton
-            aria-label="open drawer"
+            aria-label='open drawer'
             onClick={!open ? handleDrawerOpen : handleDrawerClose}
-            edge="start"
+            edge='start'
             className={classes.menuButton}
           >
             {!open ? (
@@ -193,8 +195,8 @@ const SideMenu = ({ component: Component, logout, userHandle, getUserDetails, us
               <ChevronLeftIcon className={classes.icon} />
             )}
           </IconButton>
-          <Link to="/dashboard">
-            <Typography variant="h6" className={classes.title}>
+          <Link to='/dashboard'>
+            <Typography variant='h6' className={classes.title}>
               OCCASSIONALLY
             </Typography>
           </Link>
@@ -202,7 +204,7 @@ const SideMenu = ({ component: Component, logout, userHandle, getUserDetails, us
       </AppBar>
 
       <Drawer
-        variant="permanent"
+        variant='permanent'
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
           [classes.drawerClose]: !open,
@@ -214,19 +216,23 @@ const SideMenu = ({ component: Component, logout, userHandle, getUserDetails, us
           }),
         }}
       >
-      <IconButton onClick={handleOpenProfile}>
-        <Avatar
-          alt="Remy Sharp"
-          src={userData.imageURL || user.imageURL} // yaha userhandle ka image aayega
-          className={classes.large}
-        />
-      </IconButton>
-
+        <div className={classes.iconBtn}>
+          <IconButton onClick={handleOpenProfile}>
+            <Avatar
+              className={classes.large}
+              alt='Remy Sharp'
+              src={userData.imageURL || user.imageURL}
+            />
+          </IconButton>
+        </div>
+        <Typography className={classes.username} variant='h4'>
+          {userHandle}
+        </Typography>
         <List>
           <ListItem
             className={classes.AddEvent}
             button
-            key={"AddEvent"}
+            key={'AddEvent'}
             onClick={handleOpen}
           >
             <ListItemIcon>
@@ -235,11 +241,7 @@ const SideMenu = ({ component: Component, logout, userHandle, getUserDetails, us
           </ListItem>
 
           <Link to={`/events/${userData.handle || user.handle}`}>
-            <ListItem
-              className={classes.MyEvent}
-              button
-              key={"MyEvent"}
-            >
+            <ListItem className={classes.MyEvent} button key={'MyEvent'}>
               <ListItemIcon>
                 <FormatListBulletedIcon className={classes.icon} />
               </ListItemIcon>
@@ -249,8 +251,8 @@ const SideMenu = ({ component: Component, logout, userHandle, getUserDetails, us
           <ListItem
             className={classes.logout}
             button
-            key={"LogOut"}
-            onClick={logout} // yaha logout aayega link add kr rha tha nhi hua
+            key={'LogOut'}
+            onClick={logout}
           >
             <ListItemIcon>
               <ExitToAppIcon className={classes.icon} />
@@ -260,7 +262,7 @@ const SideMenu = ({ component: Component, logout, userHandle, getUserDetails, us
       </Drawer>
 
       <main className={classes.content}>
-        <Toolbar variant="dense" />
+        <Toolbar variant='dense' />
         <Component />
       </main>
       <Popup
@@ -274,8 +276,8 @@ const SideMenu = ({ component: Component, logout, userHandle, getUserDetails, us
         componenet={UserDetailCard}
       />
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   notifications: state.user.notifications,
@@ -285,7 +287,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(startLogout()),
-    getUserDetails: (handle) => dispatch(startGetUserDetails(handle)), 
+    getUserDetails: (handle) => dispatch(startGetUserDetails(handle)),
   }
 }
 
