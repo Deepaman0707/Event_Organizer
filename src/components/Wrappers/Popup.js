@@ -11,6 +11,7 @@ const Popup = ({ open, handleClose, componenet : Component }) => {
           style: {
             backgroundColor: 'transparent',
             boxShadow: 'none',
+            maxWidth: 'none',
           },
         }}
         open={open}

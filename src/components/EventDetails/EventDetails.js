@@ -27,7 +27,7 @@ import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { CardMedia } from '@material-ui/core'
-
+import { Avatar } from '@material-ui/core'
 import { dailySalesChart, emailsSubscriptionChart } from '../../assets/charts'
 import { connect } from 'react-redux'
 import Link from 'react-router-dom/Link'
@@ -49,10 +49,8 @@ import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '600px',
-    paddingTop: '10px',
-    paddingLeft: '15px',
-    paddingRight: '15px',
+    marginLeft: '54px',
+    width: '1220px',
     borderRadius: 0,
   },
 
@@ -63,27 +61,7 @@ const useStyles = makeStyles((theme) => ({
     width: '16px',
     height: '16px',
   },
-  stats: {
-    color: grayColor[0],
-    display: 'inline-flex',
-    fontSize: '12px',
-    lineHeight: '22px',
-    '& svg': {
-      top: '4px',
-      width: '16px',
-      height: '16px',
-      position: 'relative',
-      marginRight: '3px',
-      marginLeft: '3px',
-    },
-    '& .fab,& .fas,& .far,& .fal,& .material-icons': {
-      top: '4px',
-      fontSize: '16px',
-      position: 'relative',
-      marginRight: '3px',
-      marginLeft: '3px',
-    },
-  },
+
   grid: {
     margin: '0 -15px !important',
     width: 'unset',
@@ -105,6 +83,27 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14px',
     marginTop: '0',
     marginBottom: '0',
+  },
+  stats: {
+    color: grayColor[0],
+    display: 'inline-flex',
+    fontSize: '12px',
+    lineHeight: '22px',
+    '& svg': {
+      top: '4px',
+      width: '16px',
+      height: '16px',
+      position: 'relative',
+      marginRight: '3px',
+      marginLeft: '3px',
+    },
+    '& .fab,& .fas,& .far,& .fal,& .material-icons': {
+      top: '4px',
+      fontSize: '16px',
+      position: 'relative',
+      marginRight: '3px',
+      marginLeft: '3px',
+    },
   },
   cardTitle: {
     color: grayColor[2],
@@ -152,24 +151,74 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: 0,
   },
+  fonts: {
+    fontSize: '30px',
+  },
   btnLike: {
-    marginLeft: '380px',
-    position: 'absolute',
-    fontSize: '15px',
+    fontSize: '20px',
+    paddingRight: theme.spacing(4),
   },
   desc: {
-    padding: theme.spacing(2),
+    marginTop: 0,
+    color: grayColor[0],
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    marginBottom: 0,
   },
   handle: {
-    paddingTop: theme.spacing(2),
+    padding: theme.spacing(2),
+    paddingBottom: 0,
+    textAlign: 'center',
   },
   time: {
     margin: '15px',
     padding: theme.spacing(2),
   },
-  register:{
+  register: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  icon: { width: '70px', height: '70px' },
+  sides: {
+    bottom: 0,
+  },
+  created: {
+    textAlign: 'center',
+  },
+  name: {
+    paddingTop: theme.spacing(2),
+    textAlign: 'center',
+    margin: 0,
+  },
+  avaIcon: {
+    width: '50px',
+    height: '50px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  values: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: theme.spacing(2),
+  },
+  fees: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '20px',
+    color: grayColor[0],
+    paddingLeft: theme.spacing(4),
+  },
+  attendNum: {
+    textAlign: 'center',
+    color: grayColor[0],
+    fontSize: '50px',
+  },
+  attendValue: {
+    textAlign: 'center',
+    color: grayColor[0],
+    fontSize: '20px',
   },
 }))
 
@@ -230,68 +279,120 @@ const EventDetails = ({
 
   return (
     <Card className={classes.root}>
-      <CardContent className={classes.content}>
-        <CardHeader color='warning' stats icon>
-          <CardIcon color='warning'>
-            <img src={event.userImageUrl} width='70px' />
-          </CardIcon>
-          <Link to={`../user/${event.userHandle}`}>
-            <Typography
-              className={classes.handle}
-              variant='h4'
-              color='secondary'
-            >
-              {event.userHandle}
-            </Typography>
-          </Link>
-          <Typography variant='h4' color='secondary'>
-            {moment(event.createdAt).format('MMM do')}
+      <Grid container>
+        <Grid items xs={6}>
+          <CardMedia>
+            <img src={event.imageUrl} height='500px' width='100%' />
+          </CardMedia>
+        </Grid>
+        <Grid items xs={6}>
+          <CardContent className={classes.content}>
+            <CardHeader>
+              <Link to={`../user/${event.userHandle}`}>
+                <Typography
+                  className={classes.handle}
+                  variant='h4'
+                  color='secondary'
+                >
+                  <Avatar className={classes.avaIcon}>
+                    <img className={classes.icon} src={event.userImageUrl} />
+                  </Avatar>
+                  {event.userHandle}
+                </Typography>
+              </Link>
+              <Typography
+                className={classes.created}
+                variant='h5'
+                color='secondary'
+              >
+                presents
+              </Typography>
+              <Typography
+                className={classes.name}
+                variant='h4'
+                color='secondary'
+              >
+                {event.eventName}
+              </Typography>
+            </CardHeader>
+            <Typography className={classes.attendNum}>0</Typography>
+            <Typography className={classes.attendValue}>Attendees</Typography>
+            <div className={classes.values}>
+              {checkLike ? (
+                <Button
+                  className={classes.btnLike}
+                  title='unlike?'
+                  variant='text'
+                  color='secondary'
+                  size='large'
+                  onClick={onClickUnLike}
+                >
+                  <FavoriteBorderIcon className={classes.fonts} />
+                  {likeCount}
+                </Button>
+              ) : (
+                <Button
+                  className={classes.btnLike}
+                  title='like?'
+                  variant='text'
+                  color='secondary'
+                  size='large'
+                  onClick={onClickLike}
+                >
+                  <FavoriteIcon className={classes.fonts} />
+                  {likeCount}
+                </Button>
+              )}
+              <Typography variant='h4' className={classes.fees}>
+                <MonetizationOnIcon className={classes.fonts} />
+                {event.fee}
+              </Typography>
+            </div>
+          </CardContent>
+          <Typography className={classes.desc} variant='h6'>
+            {event.description}
           </Typography>
-        </CardHeader>
-        {checkLike ? (
-          <Button
-            className={classes.btnLike}
-            title='unlike?'
-            variant='text'
-            color='secondary'
-            size='large'
-            onClick={onClickUnLike}
-          >
-            <FavoriteBorderIcon fontSize='large' />
-            {likeCount}
-          </Button>
-        ) : (
-          <Button
-            className={classes.btnLike}
-            title='like?'
-            variant='text'
-            color='secondary'
-            size='large'
-            onClick={onClickLike}
-          >
-            <FavoriteIcon fontSize='large' />
-            {likeCount}
-          </Button>
-        )}
-      </CardContent>
-      <Typography className={classes.desc} variant='h6'>
-        {event.description}
-      </Typography>
-      <CardFooter stats>
-        <div className={classes.stats}>
-          <a onClick={(e) => e.preventDefault()}>Know More about the event</a>
-        </div>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label='show more'
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardFooter>
+          <CardFooter stats>
+            <div className={classes.stats}>
+              <a onClick={(e) => e.preventDefault()}>
+                Know More about the event
+              </a>
+            </div>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label='show more'
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+            <div className={classes.register}>
+              {!checkRegister && (
+                <Button
+                  variant='contained'
+                  color='primary'
+                  className={classes.btn}
+                  onClick={startRegisterEvent}
+                >
+                  Register
+                </Button>
+              )}
+              {checkRegister && (
+                <Button
+                  variant='contained'
+                  color='primary'
+                  className={classes.btn}
+                  onClick={startUnRegisterEvent}
+                >
+                  Unregister
+                </Button>
+              )}
+            </div>
+          </CardFooter>
+        </Grid>
+      </Grid>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <Grid container className={classes.grid}>
           <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
@@ -349,34 +450,9 @@ const EventDetails = ({
               <LocationOnIcon />
               {event.location}
             </div>
-            <div className={classes.stats}>
-              <MonetizationOnIcon />
-              {event.fee}
-            </div>
+            <div className={classes.stats}></div>
           </Card>
         </Grid>
-        <div className={classes.register}>
-          {!checkRegister && (
-            <Button
-              variant='contained'
-              color='primary'
-              className={classes.btn}
-              onClick={startRegisterEvent}
-            >
-              Register
-            </Button>
-          )}
-          {checkRegister && (
-            <Button
-              variant='contained'
-              color='primary'
-              className={classes.btn}
-              onClick={startUnRegisterEvent}
-            >
-              Unregister
-            </Button>
-          )}
-        </div>
       </Collapse>
     </Card>
     /* <Grid container className={classes.grid}>
