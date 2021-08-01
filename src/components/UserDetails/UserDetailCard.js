@@ -147,27 +147,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps)(UserDetailCard)
-
-//   return (
-//     <Card elevation={0} className={classes.root}>
-//       <CardContent>
-//         <CardMedia image={props.user.imageURL} />
-//         <Typography variant='h5' color='textSecondary' component='p'>
-//           User Image // yaha link daal dena
-//         </Typography>
-//       </CardContent>
-//       <CardActions>
-//         <Button
-//           variant='outlined'
-//           color='primary'
-//           className={classes.editBtn}
-//           onClick={handleExpandClick}
-//           aria-expanded={expanded}
-//           aria-label='show more'
-//         >
-//           <p className={classes.textBtn}> EDIT</p>
-//         </Button>
-//       </CardActions>
-//     </Card>
-//   )
-// }
