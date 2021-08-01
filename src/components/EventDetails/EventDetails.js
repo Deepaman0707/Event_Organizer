@@ -5,8 +5,6 @@ import ChartistGraph from 'react-chartist'
 import { makeStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 // @material-ui/icons
-import Store from '@material-ui/icons/Store'
-import DateRange from '@material-ui/icons/DateRange'
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import AccessTime from '@material-ui/icons/AccessTime'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
@@ -18,15 +16,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 // core components
 import Card from '../Reusables/Card'
 import CardHeader from '../Reusables/CardHeader.js'
-import CardIcon from '../Reusables/CardIcon.js'
 import CardBody from '../Reusables/CardBody.js'
 import CardFooter from '../Reusables/CardFooter.js'
-import { CardContent } from '@material-ui/core'
 import clsx from 'clsx'
 import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { CardMedia } from '@material-ui/core'
+import { CardMedia, CardContent } from '@material-ui/core'
 import { Avatar } from '@material-ui/core'
 import { dailySalesChart, emailsSubscriptionChart } from '../../assets/charts'
 import { connect } from 'react-redux'
@@ -45,30 +41,33 @@ import {
   hexToRgb,
 } from '../../assets/UIItems'
 import { Button } from '@material-ui/core'
-import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: '54px',
-    width: '1220px',
+    width: '1225px',
     borderRadius: 0,
   },
 
   successText: {
     color: successColor[0],
   },
+
   upArrowCardCategory: {
     width: '16px',
     height: '16px',
   },
 
   grid: {
-    margin: '0 -15px !important',
+    marginLeft: '10px',
+    marginRight: '10px',
     width: 'unset',
   },
+
   gridItem: {
-    padding: '0 15px !important',
+    padding: '10px',
   },
+
   cardCategory: {
     color: grayColor[0],
     margin: '0',
@@ -77,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '10px',
     marginBottom: '0',
   },
+
   cardCategoryWhite: {
     color: 'rgba(' + hexToRgb(whiteColor) + ',.62)',
     margin: '0',
@@ -84,18 +84,18 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '0',
     marginBottom: '0',
   },
+
   stats: {
     color: grayColor[0],
     display: 'inline-flex',
     fontSize: '12px',
-    lineHeight: '22px',
     '& svg': {
       top: '4px',
       width: '16px',
       height: '16px',
       position: 'relative',
-      marginRight: '3px',
-      marginLeft: '3px',
+      marginRight: '10px',
+      marginLeft: '10px',
     },
     '& .fab,& .fas,& .far,& .fal,& .material-icons': {
       top: '4px',
@@ -105,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: '3px',
     },
   },
+
   cardTitle: {
     color: grayColor[2],
     marginTop: '0px',
@@ -120,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
       lineHeight: '1',
     },
   },
+
   cardTitleWhite: {
     color: whiteColor,
     marginTop: '0px',
@@ -134,6 +136,7 @@ const useStyles = makeStyles((theme) => ({
       lineHeight: '1',
     },
   },
+
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -141,23 +144,28 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.shortest,
     }),
   },
+
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+
   btn: {
     margin: theme.spacing(2),
     alignSelf: 'center',
   },
-  content: {
-    padding: 0,
-  },
+
   fonts: {
+    fontSize: '30px',
+  },
+  icon: {
+    padding: '0 5px 0 5px',
     fontSize: '30px',
   },
   btnLike: {
     fontSize: '20px',
     paddingRight: theme.spacing(4),
   },
+
   desc: {
     marginTop: 0,
     color: grayColor[0],
@@ -165,60 +173,103 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(3),
     marginBottom: 0,
   },
+
   handle: {
-    padding: theme.spacing(2),
-    paddingBottom: 0,
-    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
   },
+
   time: {
-    margin: '15px',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 0,
+    marginLeft: '10px',
+    marginRight: '10px',
     padding: theme.spacing(2),
   },
+
   register: {
     display: 'flex',
     justifyContent: 'center',
   },
-  icon: { width: '70px', height: '70px' },
-  sides: {
-    bottom: 0,
-  },
+
   created: {
     textAlign: 'center',
   },
+
   name: {
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(1),
     textAlign: 'center',
     margin: 0,
   },
+
   avaIcon: {
-    width: '50px',
-    height: '50px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    margin: theme.spacing(1),
+    width: '35px',
+    height: '35px',
   },
+
   values: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: theme.spacing(2),
   },
+
   fees: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: '20px',
-    color: grayColor[0],
+    color: 'green',
     paddingLeft: theme.spacing(4),
   },
+
   attendNum: {
     textAlign: 'center',
     color: grayColor[0],
     fontSize: '50px',
   },
+
   attendValue: {
     textAlign: 'center',
     color: grayColor[0],
     fontSize: '20px',
+  },
+
+  item: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  eventImage: {
+    padding: theme.spacing(2),
+    width: '100%',
+    height: '400px',
+  },
+
+  foot: {
+    fontSize: '12px',
+    color: grayColor[0],
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingTop: 0,
+    marginTop: 0,
+  },
+
+  graph: {
+    marginTop: '15px',
+    marginBottom: '10px',
+  },
+  details: {
+    color: grayColor[0],
+    display: 'flex',
+    fontSize: '12px',
+    alignItems: 'center',
+    padding: '0 15px 0 15px',
   },
 }))
 
@@ -280,36 +331,38 @@ const EventDetails = ({
   return (
     <Card className={classes.root}>
       <Grid container>
-        <Grid items xs={6}>
-          <CardMedia>
-            <img src={event.imageUrl} height='500px' width='100%' />
-          </CardMedia>
+        <Grid className={classes.item} items xs={6}>
+          <img className={classes.eventImage} src={event.imageUrl} />
         </Grid>
         <Grid items xs={6}>
-          <CardContent className={classes.content}>
-            <CardHeader>
+          <CardContent>
+            <CardHeader
+              style={{
+                padding: 0,
+              }}
+            >
               <Link to={`../user/${event.userHandle}`}>
-                <Typography
-                  className={classes.handle}
-                  variant='h4'
-                  color='secondary'
-                >
+                <div className={classes.handle}>
                   <Avatar className={classes.avaIcon}>
-                    <img className={classes.icon} src={event.userImageUrl} />
+                    <img src={event.userImageUrl} width='70px' height='70px' />
                   </Avatar>
-                  {event.userHandle}
-                </Typography>
+                  <Typography variant='h4' color='secondary'>
+                    {event.userHandle}
+                  </Typography>
+                </div>
               </Link>
               <Typography
                 className={classes.created}
                 variant='h5'
-                color='secondary'
+                style={{
+                  color: 'black',
+                }}
               >
                 presents
               </Typography>
               <Typography
                 className={classes.name}
-                variant='h4'
+                variant='h3'
                 color='secondary'
               >
                 {event.eventName}
@@ -344,7 +397,12 @@ const EventDetails = ({
                 </Button>
               )}
               <Typography variant='h4' className={classes.fees}>
-                <MonetizationOnIcon className={classes.fonts} />
+                <MonetizationOnIcon
+                  className={classes.fonts}
+                  style={{
+                    color: 'green',
+                  }}
+                />
                 {event.fee}
               </Typography>
             </div>
@@ -352,51 +410,49 @@ const EventDetails = ({
           <Typography className={classes.desc} variant='h6'>
             {event.description}
           </Typography>
-          <CardFooter stats>
-            <div className={classes.stats}>
-              <a onClick={(e) => e.preventDefault()}>
-                Know More about the event
-              </a>
-            </div>
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label='show more'
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-            <div className={classes.register}>
-              {!checkRegister && (
-                <Button
-                  variant='contained'
-                  color='primary'
-                  className={classes.btn}
-                  onClick={startRegisterEvent}
-                >
-                  Register
-                </Button>
-              )}
-              {checkRegister && (
-                <Button
-                  variant='contained'
-                  color='primary'
-                  className={classes.btn}
-                  onClick={startUnRegisterEvent}
-                >
-                  Unregister
-                </Button>
-              )}
-            </div>
-          </CardFooter>
         </Grid>
       </Grid>
+      <CardFooter className={classes.foot}>
+        <div>
+          <a onClick={(e) => e.preventDefault()}>Know More about the event</a>
+        </div>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label='show more'
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+        <div className={classes.register}>
+          {!checkRegister && (
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.btn}
+              onClick={startRegisterEvent}
+            >
+              Register
+            </Button>
+          )}
+          {checkRegister && (
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.btn}
+              onClick={startUnRegisterEvent}
+            >
+              Unregister
+            </Button>
+          )}
+        </div>
+      </CardFooter>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <Grid container className={classes.grid}>
           <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
-            <Card chart>
+            <Card className={classes.graph} chart>
               <CardHeader color='success'>
                 <ChartistGraph
                   className='ct-chart'
@@ -418,7 +474,7 @@ const EventDetails = ({
             </Card>
           </Grid>
           <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
-            <Card chart>
+            <Card className={classes.graph} chart>
               <CardHeader color='warning'>
                 <ChartistGraph
                   className='ct-chart'
@@ -438,19 +494,18 @@ const EventDetails = ({
             </Card>
           </Grid>
           <Card className={classes.time}>
-            <div className={classes.stats}>
-              <AccessTime />
+            <div className={classes.details}>
+              <AccessTime className={classes.icon} />
               {' ' +
                 event.startDate +
                 (event.endDate !== event.startDate
                   ? ' - ' + event.endDate
                   : '')}
             </div>
-            <div className={classes.stats}>
-              <LocationOnIcon />
+            <div className={classes.details}>
+              <LocationOnIcon className={classes.icon} />
               {event.location}
             </div>
-            <div className={classes.stats}></div>
           </Card>
         </Grid>
       </Collapse>
