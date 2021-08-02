@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ParticleBgSection = ({ title, page }) => {
+const ParticleBgSection = ({ component:Component, title, page }) => {
   const classes = useStyles();
 
   return (
@@ -37,22 +37,7 @@ const ParticleBgSection = ({ title, page }) => {
         style={{ backgroundColor: "transparent", position: "relative" }}
       >
         <Container maxWidth="sm">
-          <Typography
-            component="h1"
-            variant="h2"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-          >
-            {title}
-          </Typography>
-          {page === "Dashboard" ? (
-            <Grid container spacing={2} justifyContent="center">
-              <EventFilters />
-            </Grid>
-          ) : (
-            <div></div>
-          )}
+          <Component/>
           <ParticlesBg type="random" bg={true} />
         </Container>
       </div>

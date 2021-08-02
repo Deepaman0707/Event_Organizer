@@ -7,6 +7,10 @@ import { Card, CardMedia, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: '0px',
+    padding: '0px',
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9,
@@ -15,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
   handle: {
     padding: '25px',
+  },
+  content: {
+    padding: 0,
+    marginBottom: 0,
   },
   textBtn: {
     fontSize: '10px',
@@ -57,7 +65,7 @@ export const EditUserDetails = ({ user, addUserDetails, addUserImage }) => {
   }
   return (
     <Card elevation={0}>
-      <CardContent>
+      <CardContent className={classes.content}>
         <CardMedia
           className={classes.media}
           image={imageUrl || user.imageURL}
