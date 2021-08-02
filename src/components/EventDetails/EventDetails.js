@@ -45,7 +45,7 @@ import { Button } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: '54px',
-    width: '1225px',
+    width: '1000px',
     borderRadius: 0,
   },
 
@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
   grid: {
     marginLeft: '10px',
     marginRight: '10px',
-    width: 'unset',
   },
 
   gridItem: {

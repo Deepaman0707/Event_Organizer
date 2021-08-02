@@ -1,6 +1,6 @@
 import React from 'react'
 import UserEventList from './UserEventList'
-import UserDetails from './UserDetails'
+import UserDetails from '../UserDetails/UserDetails'
 import ParticleBgSection from '../Wrappers/ParticleBgSection'
 const MyBlogsPage = (props) => (
   <div>
