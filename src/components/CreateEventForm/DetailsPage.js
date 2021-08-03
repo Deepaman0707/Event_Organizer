@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import { Clear } from "@material-ui/icons";
@@ -38,9 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DetailsPage = (props) => {
   const classes = useStyles();
-
   const [count, setCount] = React.useState(0);
-
   const handleUploadClick = (event) => {
     var file = event.target.files[0];
     const reader = new FileReader();

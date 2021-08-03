@@ -66,13 +66,13 @@ export const UserDetails = ({ user, handle, getUserDetails, follows }) => {
         setFollowing(data.follows.following)
       })
     }
-  }, [])
+  })
 
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <Avatar className={classes.avaIcon}>
-          <img src={userData.imageURL || user.imageURL} />
+          <img src={userData.imageURL || user.imageURL} alt='' />
         </Avatar>
         <Typography variant='h4'>
           {(userData.name && userData.name) || (user.name && user.name)}

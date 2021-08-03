@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { startSignUp } from "./../../actions/auth";
-import isEmail from "validator/lib/isEmail";
-
 import { CircularProgress } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";

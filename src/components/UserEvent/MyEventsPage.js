@@ -2,7 +2,7 @@ import React from 'react'
 import UserEventList from './UserEventList'
 import UserDetails from '../UserDetails/UserDetails'
 import ParticleBgSection from '../Wrappers/ParticleBgSection'
-const MyBlogsPage = (props) => (
+const MyEventPage = (props) => (
   <div>
     <ParticleBgSection
       component={() => <UserDetails handle={props.match.params.handle} />}
@@ -11,4 +11,4 @@ const MyBlogsPage = (props) => (
   </div>
 )
 
-export default MyBlogsPage
+export default MyEventPage

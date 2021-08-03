@@ -80,7 +80,7 @@ export const UserDetailCard = (props) => {
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <Avatar className={classes.avaIcon}>
-          <img src={props.imageUrl || props.user.imageURL} />
+          <img src={props.imageUrl || props.user.imageURL} alt=''/>
         </Avatar>
         <Typography variant='h4'>{props.userHandle}</Typography>
         <div className={classes.values}>
