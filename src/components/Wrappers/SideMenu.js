@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { startGetUserDetails } from './../../actions/user'
-
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import AppBar from '@material-ui/core/AppBar'
@@ -16,20 +15,16 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import clsx from 'clsx'
 import AddIcon from '@material-ui/icons/Add'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-
 import Popup from './Popup'
 import AddEventForm from '../CreateEventForm/AddEventForm'
 import UserDetailCard from '../UserDetails/UserDetailCard'
-
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted'
 import { Link } from 'react-router-dom'
 import { Avatar } from '@material-ui/core'
-import Footer from './Footer'
-
 import { connect } from 'react-redux'
 import { startLogout } from './../../actions/auth'
 
-const drawerWidth = 250
+const drawerWidth = 100
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,10 +75,7 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9) + 1,
     },
   },
-  listItemText: {
-    fontSize: '15px',
-    marginLeft: '15%',
-  },
+
   content: {
     flexGrow: 1,
     padding: theme.spacing(0),
@@ -100,37 +92,33 @@ const useStyles = makeStyles((theme) => ({
     opacity: '87%',
   },
   large: {
-    width: '80px',
-    height: '80px',
+    width: '60px',
+    height: '60px',
     alignSelf: 'center',
-  },
-  Profile: {
-    top: '10vh',
-    position: 'absolute',
-    fontSize: '25px',
-    alignContent: 'center',
   },
 
   AddEvent: {
-    marginTop: '200%',
-    position: 'relative',
+    marginTop: '180px',
   },
 
   MyEvent: {
-    position: 'relative',
+    marginTop: '10px',
   },
 
   logout: {
-    marginTop: '500%',
-    position: 'relative',
+    marginTop: '420px',
   },
+
   iconBtn: {
     marginTop: '5vh',
-
     alignSelf: 'center',
   },
+
   username: {
     color: 'white',
+    fontSize: '15px',
+    marginTop: '70px',
+    transform: 'rotate(-90deg)',
     textAlign: 'center',
   },
 }))
@@ -148,9 +136,9 @@ const SideMenu = ({
   const [openProfile, setOpenProfile] = React.useState(false)
   const [openForm, setOpenForm] = React.useState(false)
 
-  const userData = user;
+  const userData = user
   const handleDrawerOpen = () => {
-    setOpen(true)
+    setOpen(false)
   }
 
   const handleDrawerClose = () => {
