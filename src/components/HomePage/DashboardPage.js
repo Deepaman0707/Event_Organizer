@@ -1,18 +1,15 @@
 import React from 'react'
 import EventList from './EventList'
-
 import { makeStyles } from '@material-ui/core/styles'
 import AddIcon from '@material-ui/icons/Add'
 import Fab from '@material-ui/core/Fab'
-
 import Popup from '../Wrappers/Popup'
 import AddEventForm from '../CreateEventForm/AddEventForm'
-import EventDetails from '../EventDetails/EventDetails'
+import EventCard from '../EventDetails/EventCard'
 import { Typography } from '@material-ui/core'
 import EventFilters from './EventFilters'
 import { Grid } from '@material-ui/core'
 import ParticleBgSection from '../Wrappers/ParticleBgSection'
-import { Explore } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -52,7 +49,7 @@ const DashboardPage = () => {
     setEventID(eId)
   }
 
-  const getEventDetails = () => <EventDetails eventID={eventID} />
+  const getEventDetails = () => <EventCard eventID={eventID} />
   const sectionHeader = () => {
     return (
       <div>

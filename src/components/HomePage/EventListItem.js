@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import Link from 'react-router-dom/Link';
 import { faCalendarAlt, faClock, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

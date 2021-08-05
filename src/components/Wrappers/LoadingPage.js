@@ -1,23 +1,13 @@
-import React, { useState } from "react";
-import ClimbingBoxLoader from "react-spinners";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { css } from "@emotion/react";
+import React from 'react'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
-
-const LoadingPage = ({loading}) => {
-
+const LoadingPage = ({ loading }) => {
   return (
-    <div
-    >
+    <div>
       {loading ? <CircularProgress /> : <div></div>}
       {/* <ClimbingBoxLoader color={color} loading={loading} /> o7 */}
     </div>
-  );
-};
+  )
+}
 
-export default LoadingPage;
+export default LoadingPage

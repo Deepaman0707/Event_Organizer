@@ -1,36 +1,16 @@
 import React from 'react'
-import cx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
-import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import CardActions from '@material-ui/core/CardActions'
-import TextInfoContent from '@mui-treasury/components/content/textInfo'
-import useBlogTextInfoContentStyles from '@mui-treasury/styles/textInfoContent/blog'
 import Collapse from '@material-ui/core/Collapse'
-import clsx from 'clsx'
 import CardFooter from '../Reusables/CardFooter.js'
 import { Avatar } from '@material-ui/core'
 import { connect } from 'react-redux'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import {
-  successColor,
-  whiteColor,
-  grayColor,
-  hexToRgb,
-} from '../../assets/UIItems'
-import { CardHeader } from '@material-ui/core'
-import Link from 'react-router-dom/Link'
-import { Theme } from '@material-ui/core'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import EditUserDetails from './EditUserDetails'
-import useOverShadowStyles from '@mui-treasury/styles/shadow/over'
 import { Typography } from '@material-ui/core'
-import sample from '../../assets/empty.jpg'
-import auto from 'async'
-import ThemeConsumer from 'styled-components'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,7 +80,7 @@ export const UserDetailCard = (props) => {
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <Avatar className={classes.avaIcon}>
-          <img src={props.imageUrl || props.user.imageURL} />
+          <img src={props.imageUrl || props.user.imageURL} alt=''/>
         </Avatar>
         <Typography variant='h4'>{props.userHandle}</Typography>
         <div className={classes.values}>
