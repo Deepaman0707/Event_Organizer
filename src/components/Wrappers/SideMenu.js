@@ -24,7 +24,7 @@ import { Avatar } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { startLogout } from './../../actions/auth'
 
-const drawerWidth = 100
+const drawerWidth = 73
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,16 +64,17 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawerClose: {
+    display: 'none',
     background: '#36338E',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
-    width: theme.spacing(9) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
-    },
+    // overflowX: 'hidden',
+    // width: theme.spacing(9) + 1,
+    // [theme.breakpoints.up('sm')]: {
+    //   width: theme.spacing(9) + 1,
+    // },
   },
 
   content: {
@@ -127,7 +128,6 @@ const SideMenu = ({
   component: Component,
   logout,
   userHandle,
-  getUserDetails,
   user,
 }) => {
   const classes = useStyles()
@@ -138,7 +138,7 @@ const SideMenu = ({
 
   const userData = user
   const handleDrawerOpen = () => {
-    setOpen(false)
+    setOpen(true)
   }
 
   const handleDrawerClose = () => {
