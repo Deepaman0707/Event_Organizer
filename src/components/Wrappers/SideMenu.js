@@ -137,13 +137,6 @@ const SideMenu = ({
   const [openForm, setOpenForm] = React.useState(false)
 
   const userData = user
-  const handleDrawerOpen = () => {
-    setOpen(true)
-  }
-
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
 
   const handleOpen = () => {
     setOpenForm(true)
@@ -151,10 +144,6 @@ const SideMenu = ({
 
   const handleClose = () => {
     setOpenForm(false)
-  }
-
-  const handleOpenProfile = () => {
-    setOpenProfile(true)
   }
 
   const handleCloseProfile = () => {
@@ -173,7 +162,10 @@ const SideMenu = ({
         <Toolbar styles={classes.toolbar} variant='dense'>
           <IconButton
             aria-label='open drawer'
-            onClick={!open ? handleDrawerOpen : handleDrawerClose}
+            onClick={ () => {
+              setOpen(!open)
+            }
+          }
             edge='start'
             className={classes.menuButton}
           >
@@ -205,7 +197,9 @@ const SideMenu = ({
         }}
       >
         <div className={classes.iconBtn}>
-          <IconButton onClick={handleOpenProfile}>
+          <IconButton onClick={() => {
+            setOpenProfile(true)
+          }}>
             <Avatar
               className={classes.large}
               alt='Remy Sharp'
