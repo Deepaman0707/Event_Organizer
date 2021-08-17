@@ -13,6 +13,7 @@ import Arts_and_Craft from '../../assets/Arts_and_Craft.jpg'
 import Esports from '../../assets/E-sports.jpg'
 import Sports from '../../assets/Sports.jpg'
 import Dance from '../../assets/Dance.jpg'
+import Empty from '../../assets/empty.jpg'
 const useStyles = makeStyles((theme) => ({
   grid: {
     paddingTop: theme.spacing(2),
@@ -103,7 +104,7 @@ export const UserEventList = ({ handleOpen, userid }) => {
     EventData.get(`/${userid}`).then((response) => {
       setEvents(response.data.data)
     })
-  }, [setEvents])
+  }, [setEvents, userid])
   const image = (category) => {
     switch (category) {
       case 'Music':
@@ -116,6 +117,8 @@ export const UserEventList = ({ handleOpen, userid }) => {
         return Sports
       case 'Art_and_Craft':
         return Arts_and_Craft
+      default:
+        return Empty
     }
   }
   return (
