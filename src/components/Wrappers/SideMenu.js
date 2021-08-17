@@ -23,13 +23,14 @@ import { Link } from 'react-router-dom'
 import { Avatar } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { startLogout } from './../../actions/auth'
-
-const drawerWidth = 100
+import { useSelector } from 'react-redux'
+const drawerWidth = 73
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
+
   appBar: {
     backgroundColor: '#121212',
     zIndex: theme.zIndex.drawer + 1,
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -46,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -55,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
+
   drawerOpen: {
     background: '#36338E',
     width: drawerWidth,
@@ -63,50 +67,56 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+
   drawerClose: {
     background: '#36338E',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
-    width: theme.spacing(9) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
-    },
+    // overflowX: 'hidden',
+    // width: theme.spacing(9) + 1,
+    // [theme.breakpoints.up('sm')]: {
+    //   width: theme.spacing(9) + 1,
+    // },
   },
 
   content: {
     flexGrow: 1,
     padding: theme.spacing(0),
   },
+
   title: {
     flexGrow: 1,
     color: '#fff',
     opacity: '87%',
   },
+
   icon: {
     fontSize: '25px',
     marginLeft: '10%',
     color: '#fff',
     opacity: '87%',
   },
+
   large: {
     width: '60px',
     height: '60px',
     alignSelf: 'center',
+    fontSize: '30px',
+    backgroundColor: 'black',
   },
 
   AddEvent: {
-    marginTop: '180px',
+    marginTop: '20vh',
   },
 
   MyEvent: {
-    marginTop: '10px',
+    marginTop: '2vh',
   },
 
   logout: {
-    marginTop: '420px',
+    marginTop: '35vh',
   },
 
   iconBtn: {
@@ -123,27 +133,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SideMenu = ({
-  component: Component,
-  logout,
-  userHandle,
-  getUserDetails,
-  user,
-}) => {
+const SideMenu = ({ component: Component, logout }) => {
   const classes = useStyles()
 
   const [open, setOpen] = React.useState(false)
   const [openProfile, setOpenProfile] = React.useState(false)
   const [openForm, setOpenForm] = React.useState(false)
-
-  const userData = user
-  const handleDrawerOpen = () => {
-    setOpen(false)
-  }
-
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
+  const user = useSelector((state) => state.auth.user)
 
   const handleOpen = () => {
     setOpenForm(true)
@@ -173,7 +169,9 @@ const SideMenu = ({
         <Toolbar styles={classes.toolbar} variant='dense'>
           <IconButton
             aria-label='open drawer'
-            onClick={!open ? handleDrawerOpen : handleDrawerClose}
+            onClick={() => {
+              setOpen(!open)
+            }}
             edge='start'
             className={classes.menuButton}
           >
@@ -206,15 +204,13 @@ const SideMenu = ({
       >
         <div className={classes.iconBtn}>
           <IconButton onClick={handleOpenProfile}>
-            <Avatar
-              className={classes.large}
-              alt='Remy Sharp'
-              src={userData.imageURL || user.imageURL}
-            />
+            <Avatar className={classes.large} alt='Remy Sharp'>
+              {user.name === undefined ? 'A' : user.name.slice(0, 1)}
+            </Avatar>
           </IconButton>
         </div>
         <Typography className={classes.username} variant='h4'>
-          {userHandle}
+          {user.name}
         </Typography>
         <List>
           <ListItem
@@ -228,7 +224,7 @@ const SideMenu = ({
             </ListItemIcon>
           </ListItem>
 
-          <Link to={`/events/${userData.handle || user.handle}`}>
+          <Link to={`/me/events`}>
             <ListItem className={classes.MyEvent} button key={'MyEvent'}>
               <ListItemIcon>
                 <FormatListBulletedIcon className={classes.icon} />

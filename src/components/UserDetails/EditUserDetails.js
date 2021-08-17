@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import TextField from '@material-ui/core/TextField'
 import { Button } from '@material-ui/core'
-import { startAddUserDetails, startAddUserImage } from './../../actions/user'
-import { Card, CardMedia, CardContent, Typography } from '@material-ui/core'
+import { Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -33,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export const EditUserDetails = ({ user, addUserDetails, addUserImage }) => {
+export const EditUserDetails = () => {
   const classes = useStyles()
-
+  const {user} = useSelector(state => state.auth)
   const [name, setName] = useState(user.name)
   const [college, setCollege] = useState(user.college)
   const [year, setYear] = useState(user.year)
   const [contact_no, setContact] = useState(user.contact_no)
-  const [imageUrl, setImageUrl] = useState(user.imageUrl)
+
   const onSubmit = (e) => {
     e.preventDefault()
     const details = {
@@ -50,36 +49,11 @@ export const EditUserDetails = ({ user, addUserDetails, addUserImage }) => {
       contact_no,
     }
     console.log(details)
-    addUserDetails(details)
-  }
-  const handleEditPicture = () => {
-    const fileInput = document.getElementById('imageChange')
-    fileInput.click()
   }
 
-  const onImageChange = (e) => {
-    const image = e.target.files[0]
-    const formData = new FormData()
-    formData.append('image', image, image.name)
-    addUserImage(formData).then((data) => setImageUrl(data))
-  }
   return (
     <Card elevation={0}>
       <CardContent className={classes.content}>
-        <CardMedia
-          className={classes.media}
-          image={imageUrl || user.imageURL}
-        ></CardMedia>
-        <input
-          type='file'
-          hidden='hidden'
-          name='imageUrl'
-          id='imageChange'
-          onChange={onImageChange}
-        />
-        <Button variant='contained' color='primary' onClick={handleEditPicture}>
-          <p className={classes.textBtn}>CHANGE IMAGE</p>
-        </Button>
         <form onSubmit={onSubmit}>
           <Typography
             className={classes.handle}
@@ -143,13 +117,4 @@ export const EditUserDetails = ({ user, addUserDetails, addUserImage }) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user.user,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  addUserDetails: (details) => dispatch(startAddUserDetails(details)),
-  addUserImage: (formData) => dispatch(startAddUserImage(formData)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditUserDetails)
+export default (EditUserDetails)

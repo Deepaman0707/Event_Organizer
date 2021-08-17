@@ -24,10 +24,10 @@ const AppRouter = () => (
         <HeaderlessRoute path='/dashboard' component={DashboardPage} />
         <HeaderlessRoute path='/event' component={EventCard} />
         <HeaderlessRoute
-          path='/events/:handle'
+          path='/me/events'
           component={UserEventDashboard}
         />
-        <HeaderlessRoute path='/user/:handle' component={MyEventsPage} />
+        <HeaderlessRoute path='/user/:userid' component={MyEventsPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

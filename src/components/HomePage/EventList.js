@@ -1,6 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import selectEvents from './../../selectors/events'
+import { useState, useEffect } from 'react'
 import { ImageList } from '@material-ui/core'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Typography from '@material-ui/core/Typography'
@@ -8,7 +7,13 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Tilt from 'react-tilt'
-
+import Music from '../../assets/Music.jpg'
+import Arts_and_Craft from '../../assets/Arts_and_Craft.jpg'
+import Esports from '../../assets/E-sports.jpg'
+import Sports from '../../assets/Sports.jpg'
+import Dance from '../../assets/Dance.jpg'
+import EventData from '../../apis/EventData'
+import { useDispatch } from 'react-redux'
 const useStyles = makeStyles((theme) => ({
   grid: {
     paddingTop: theme.spacing(2),
@@ -88,9 +93,38 @@ const useStyles = makeStyles((theme) => ({
 
 // /${event.id || event.eventId}
 
-export const EventList = ({ events, handleEventOpen, setEventID }) => {
+export const EventList = ({ handleEventOpen, setEventID }) => {
   const classes = useStyles()
+  const image = (category) => {
+    switch (category) {
+      case 'Music':
+        return Music
+      case 'Dance':
+        return Dance
+      case 'E-Sports':
+        return Esports
+      case 'Sports':
+        return Sports
+      case 'Art_and_Craft':
+        return Arts_and_Craft
+      default:
+        return ''
+    }
+  }
+  const [events, setEvents] = useState([])
+  const dispatch = useDispatch()
+  const setEvent = (e) =>
+    dispatch({
+      type: 'SET_EVENT',
+      payload: e,
+    })
 
+  useEffect(() => {
+    EventData.get('/').then((response) => {
+      setEvents(response.data.data)
+    })
+  }, [setEvents])
+  console.log(events)
   return (
     <Container className={classes.grid}>
       <ImageList rowHeight={200} gap={1} className={classes.imageList} cols={3}>
@@ -103,7 +137,7 @@ export const EventList = ({ events, handleEventOpen, setEventID }) => {
                 <Tilt>
                   <ButtonBase
                     focusRipple
-                    key={event.eventName}
+                    key={event.event_name}
                     className={classes.image}
                     focusVisibleClassName={classes.focusVisible}
                     style={{
@@ -111,15 +145,13 @@ export const EventList = ({ events, handleEventOpen, setEventID }) => {
                     }}
                     onClick={() => {
                       handleEventOpen()
-                      setEventID(event.id || event.eventId)
-                      // console.log(event.id || event.eventId)
-                      // console.log(`${event.id || event.eventId}`)
+                      setEvent(event)
                     }}
                   >
                     <span
                       className={classes.imageSrc}
                       style={{
-                        backgroundImage: `url(${event.imageUrl})`,
+                        backgroundImage: `url(${image(event.category)})`,
                       }}
                     />
                     <span className={classes.imageBackdrop} />
@@ -130,7 +162,7 @@ export const EventList = ({ events, handleEventOpen, setEventID }) => {
                         color='inherit'
                         className={classes.imageTitle}
                       >
-                        {event.eventName}
+                        {event.event_name}
                         <span className={classes.imageMarked} />
                       </Typography>
                     </span>
@@ -144,9 +176,5 @@ export const EventList = ({ events, handleEventOpen, setEventID }) => {
     </Container>
   )
 }
-const mapStateToProps = (state) => ({
-  events: selectEvents(state.events, state.filters),
-  // userImage: state.user.user ? state.auth.user.imageUrl: ''
-})
 
-export default connect(mapStateToProps)(EventList)
+export default EventList

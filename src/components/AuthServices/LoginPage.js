@@ -1,7 +1,4 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { startLogin } from './../../actions/auth'
-import isEmail from 'validator/lib/isEmail'
+import React, { useState, useEffect } from 'react'
 import Link from 'react-router-dom/Link'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -15,7 +12,8 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { CircularProgress } from '@material-ui/core'
-
+import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
 const useStyles = makeStyles((theme) => ({
   '@global': {
     body: {
@@ -41,28 +39,63 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export const LoginPage = ({ startLogin, error, unsetError, loading }) => {
+export const LoginPage = () => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth)
+  console.log(user)
+  const setAuth = () =>
+    dispatch({
+      type: 'LOGIN',
+    })
+  const setUser = (user) =>
+    dispatch({
+      type: 'INPUTUSER',
+      payload: user,
+    })
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000)
+  }, [])
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+  })
+  const { email, password } = inputs
+  const onChange = (e) =>
+    setInputs({ ...inputs, [e.target.name]: e.target.value })
 
-  const [email, getEmail] = useState('')
-  const [password, getPassword] = useState('')
-
-  const onStartLogin = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    if (isEmail(email)) {
-      const credentials = {
-        email,
-        password,
+    try {
+      setLoading(true)
+      const body = { email, password }
+      const response = await fetch('http://localhost:5000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+      const parseRes = await response.json()
+      console.log(parseRes.userData)
+      setUser(parseRes.userData)
+      if (parseRes.jwtToken) {
+        localStorage.setItem('token', parseRes.jwtToken)
+        setLoading(false)
+        setAuth()
+        toast.success('Logged in Successfully')
+      } else {
+        setLoading(false)
+        alert('error')
+        toast.error(parseRes)
       }
-
-      startLogin(credentials).then(() => {})
+    } catch (err) {
+      alert(err)
+      console.error(err.message)
     }
   }
 
-  const showErrors = () => {
-    if (!!error) alert(error)
-    unsetError()
-  }
   return (
     <div>
       {loading ? (
@@ -87,7 +120,7 @@ export const LoginPage = ({ startLogin, error, unsetError, loading }) => {
               <Typography component='h1' variant='h5'>
                 Sign in
               </Typography>
-              <form className={classes.form} onSubmit={onStartLogin} noValidate>
+              <form className={classes.form} onSubmit={onSubmit} noValidate>
                 <TextField
                   variant='outlined'
                   margin='normal'
@@ -98,7 +131,7 @@ export const LoginPage = ({ startLogin, error, unsetError, loading }) => {
                   name='email'
                   autoComplete='email'
                   autoFocus
-                  onChange={(e) => getEmail(e.target.value)}
+                  onChange={(e) => onChange(e)}
                 />
                 <TextField
                   variant='outlined'
@@ -110,7 +143,7 @@ export const LoginPage = ({ startLogin, error, unsetError, loading }) => {
                   type='password'
                   id='password'
                   autoComplete='current-password'
-                  onChange={(e) => getPassword(e.target.value)}
+                  onChange={(e) => onChange(e)}
                 />
                 <FormControlLabel
                   control={<Checkbox value='remember' color='primary' />}
@@ -154,23 +187,9 @@ export const LoginPage = ({ startLogin, error, unsetError, loading }) => {
                              </button>
                             
                          </div> */}
-      {error && showErrors()}
+      {/* {error && showErrors()} */}
     </div>
   )
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  startLogin: (credentials) => dispatch(startLogin(credentials)),
-  unsetError: () =>
-    dispatch({
-      type: 'SET_ERRORS',
-      error: '',
-    }),
-})
-
-const mapStateToProps = (state) => ({
-  error: state.auth.error,
-  loading: state.auth.loading,
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+export default LoginPage
