@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { startGetUserDetails } from './../../actions/user'
-
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import AppBar from '@material-ui/core/AppBar'
@@ -16,25 +15,22 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import clsx from 'clsx'
 import AddIcon from '@material-ui/icons/Add'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-
 import Popup from './Popup'
 import AddEventForm from '../CreateEventForm/AddEventForm'
 import UserDetailCard from '../UserDetails/UserDetailCard'
-
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted'
 import { Link } from 'react-router-dom'
 import { Avatar } from '@material-ui/core'
-import Footer from './Footer'
-
 import { connect } from 'react-redux'
 import { startLogout } from './../../actions/auth'
-
-const drawerWidth = 250
+import { useSelector } from 'react-redux'
+const drawerWidth = 73
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
+
   appBar: {
     backgroundColor: '#121212',
     zIndex: theme.zIndex.drawer + 1,
@@ -43,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -51,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -60,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
+
   drawerOpen: {
     background: '#36338E',
     width: drawerWidth,
@@ -68,94 +67,79 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+
   drawerClose: {
     background: '#36338E',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
-    width: theme.spacing(9) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
-    },
+    // overflowX: 'hidden',
+    // width: theme.spacing(9) + 1,
+    // [theme.breakpoints.up('sm')]: {
+    //   width: theme.spacing(9) + 1,
+    // },
   },
-  listItemText: {
-    fontSize: '15px',
-    marginLeft: '15%',
-  },
+
   content: {
     flexGrow: 1,
     padding: theme.spacing(0),
   },
+
   title: {
     flexGrow: 1,
     color: '#fff',
     opacity: '87%',
   },
+
   icon: {
     fontSize: '25px',
     marginLeft: '10%',
     color: '#fff',
     opacity: '87%',
   },
+
   large: {
-    width: '80px',
-    height: '80px',
+    width: '60px',
+    height: '60px',
     alignSelf: 'center',
-  },
-  Profile: {
-    top: '10vh',
-    position: 'absolute',
-    fontSize: '25px',
-    alignContent: 'center',
+    fontSize: '30px',
+    backgroundColor: 'black',
   },
 
   AddEvent: {
-    marginTop: '200%',
-    position: 'relative',
+    marginTop: '20vh',
   },
 
   MyEvent: {
-    position: 'relative',
+    marginTop: '2vh',
   },
 
   logout: {
-    marginTop: '500%',
-    position: 'relative',
+    marginTop: '35vh',
   },
+
   iconBtn: {
     marginTop: '5vh',
-
     alignSelf: 'center',
   },
+
   username: {
     color: 'white',
+    fontSize: '15px',
+    marginTop: '70px',
+    transform: 'rotate(-90deg)',
     textAlign: 'center',
   },
 }))
 
-const SideMenu = ({
-  component: Component,
-  logout,
-  userHandle,
-  getUserDetails,
-  user,
-}) => {
+const SideMenu = ({ component: Component, logout }) => {
   const classes = useStyles()
 
   const [open, setOpen] = React.useState(false)
   const [openProfile, setOpenProfile] = React.useState(false)
   const [openForm, setOpenForm] = React.useState(false)
-
-  const userData = user;
-  const handleDrawerOpen = () => {
-    setOpen(true)
-  }
-
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
+  const user = useSelector((state) => state.auth.user)
 
   const handleOpen = () => {
     setOpenForm(true)
@@ -185,7 +169,9 @@ const SideMenu = ({
         <Toolbar styles={classes.toolbar} variant='dense'>
           <IconButton
             aria-label='open drawer'
-            onClick={!open ? handleDrawerOpen : handleDrawerClose}
+            onClick={() => {
+              setOpen(!open)
+            }}
             edge='start'
             className={classes.menuButton}
           >
@@ -218,15 +204,13 @@ const SideMenu = ({
       >
         <div className={classes.iconBtn}>
           <IconButton onClick={handleOpenProfile}>
-            <Avatar
-              className={classes.large}
-              alt='Remy Sharp'
-              src={userData.imageURL || user.imageURL}
-            />
+            <Avatar className={classes.large} alt='Remy Sharp'>
+              {user.name === undefined ? 'A' : user.name.slice(0, 1)}
+            </Avatar>
           </IconButton>
         </div>
         <Typography className={classes.username} variant='h4'>
-          {userHandle}
+          {user.name}
         </Typography>
         <List>
           <ListItem
@@ -240,7 +224,7 @@ const SideMenu = ({
             </ListItemIcon>
           </ListItem>
 
-          <Link to={`/events/${userData.handle || user.handle}`}>
+          <Link to={`/me/events`}>
             <ListItem className={classes.MyEvent} button key={'MyEvent'}>
               <ListItemIcon>
                 <FormatListBulletedIcon className={classes.icon} />

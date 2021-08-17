@@ -10,7 +10,6 @@ import { Typography } from '@material-ui/core'
 import EventFilters from './EventFilters'
 import { Grid } from '@material-ui/core'
 import ParticleBgSection from '../Wrappers/ParticleBgSection'
-
 const useStyles = makeStyles((theme) => ({
   fab: {
     margin: 0,
@@ -22,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-// import FamousCard from './FamousCard';
 const DashboardPage = () => {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)

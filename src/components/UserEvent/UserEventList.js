@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { startGetUserEvents } from '../../actions/user'
-import { Button, ImageList } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import { ImageList } from '@material-ui/core'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Tilt from 'react-tilt'
-
+import { useDispatch } from 'react-redux'
+import EventData from '../../apis/EventData'
+import Music from '../../assets/Music.jpg'
+import Arts_and_Craft from '../../assets/Arts_and_Craft.jpg'
+import Esports from '../../assets/E-sports.jpg'
+import Sports from '../../assets/Sports.jpg'
+import Dance from '../../assets/Dance.jpg'
 const useStyles = makeStyles((theme) => ({
   grid: {
     paddingTop: theme.spacing(2),
@@ -85,12 +89,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export const UserEventList = (props) => {
+export const UserEventList = ({ handleOpen, userid }) => {
   const classes = useStyles()
+  const [events, setEvents] = useState([])
+  const dispatch = useDispatch()
+  const setEvent = (e) =>
+    dispatch({
+      type: 'SET_EVENT',
+      payload: e,
+    })
 
   useEffect(() => {
-    props.getUserEvents(props.handle || props.userHandle)
-  }, [])
+    EventData.get(`/${userid}`).then((response) => {
+      setEvents(response.data.data)
+    })
+  }, [setEvents])
+  const image = (category) => {
+    switch (category) {
+      case 'Music':
+        return Music
+      case 'Dance':
+        return Dance
+      case 'E-Sports':
+        return Esports
+      case 'Sports':
+        return Sports
+      case 'Art_and_Craft':
+        return Arts_and_Craft
+    }
+  }
   return (
     <>
       <Container className={classes.grid}>
@@ -100,14 +127,8 @@ export const UserEventList = (props) => {
           className={classes.imageList}
           cols={3}
         >
-          {props.events.length === 0 ? (
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={props.handleOpen}
-            >
-              No Events? Want To Organise One?
-            </Button>
+          {events.length === 0 ? (
+            <div></div>
           ) : (
             // <Container className={classes.grid}>
             //   <ImageList
@@ -117,25 +138,28 @@ export const UserEventList = (props) => {
             //     cols={3}
             //   >
             // {() =>
-            props.events.map((event) => {
+            events.map((event) => {
               // console.log('Hello');
               return (
                 <Grid item key={event.id} xs={6} sm={6} md={4}>
                   <Tilt>
                     <ButtonBase
                       focusRipple
-                      key={event.eventName}
+                      key={event.event_name}
                       className={classes.image}
                       focusVisibleClassName={classes.focusVisible}
                       style={{
                         width: '100%',
                       }}
-                      onClick={props.handleOpen}
+                      onClick={() => {
+                        handleOpen()
+                        setEvent(event)
+                      }}
                     >
                       <span
                         className={classes.imageSrc}
                         style={{
-                          backgroundImage: `url(${event.imageUrl})`,
+                          backgroundImage: `url(${image(event.category)})`,
                         }}
                       />
                       <span className={classes.imageBackdrop} />
@@ -146,7 +170,7 @@ export const UserEventList = (props) => {
                           color='inherit'
                           className={classes.imageTitle}
                         >
-                          {event.eventName}
+                          {event.event_name}
                           <span className={classes.imageMarked} />
                         </Typography>
                       </span>
@@ -164,13 +188,5 @@ export const UserEventList = (props) => {
     </>
   )
 }
-const mapStateToProps = (state) => ({
-  userHandle: state.user.userHandle,
-  events: state.user.userEvents ? state.user.userEvents : [],
-})
 
-const mapDispatchToProps = (dispatch) => ({
-  getUserEvents: (userHandle) => dispatch(startGetUserEvents(userHandle)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserEventList)
+export default UserEventList

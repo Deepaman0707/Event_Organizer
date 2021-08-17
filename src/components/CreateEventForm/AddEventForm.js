@@ -1,172 +1,297 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import DetailsPage from "./DetailsPage";
-import DateAndTime from "./DateAndTime";
-import Review from "./Review";
-
-
-import defaultImage from "../../assets/empty.jpg";
-
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
+import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import InputLabel from '@material-ui/core/InputLabel'
+import { useSelector } from 'react-redux'
+import categories from '../../literals/category'
 // styles //
 
 const useStyles = makeStyles((theme) => ({
   layout: {
-    width: "auto",
+    width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
   paper: {
+    width: '700px',
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
       padding: theme.spacing(4),
     },
   },
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
-  },
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
-}));
+  heading: {
+    padding: theme.spacing(4),
+  },
+}))
 
 const AddEventForm = ({ handleClose }) => {
-  // function to tranverse inside the form
-
-  function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return (
-          <DetailsPage
-            data={data}
-            handleChange={handleChange}
-            handleImage={handleImage}
-          />
-        );
-      case 1:
-        return <DateAndTime data={data} handleChange={handleChange} />;
-      case 2:
-        return <Review data={data} />;
-      case 3:
-        return null;
-      default:
-        throw new Error("Unknown step");
-    }
-  }
-  const classes = useStyles();
-
-  const steps = [
-    "Title and Description",
-    "Fees and Timings",
-    "Review your Event",
-  ];
-
+  const classes = useStyles()
+  const { user } = useSelector((state) => state.auth)
+  const creator = user.id
   // Hook for form data
   const [data, setData] = useState({
-    title: "My First Event",
-    description: "",
-    fee: "",
-    startDate: "",
-    endDate: "",
-    startTime: "",
-    endTime: "",
-    imageURL: defaultImage,
-  });
-  const [activeStep, setActiveStep] = React.useState(0);
+    title: '',
+    description: '',
+    fee: '0.0',
+    category: '',
+    startDate: '',
+    endDate: '',
+    startTime: '',
+    endTime: '',
+  })
+  const { title, description, fee, category } = data
 
   // function to handle changes
-  const handleImage = (e) => {
-    const { name, value } = e;
-    setData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleClose();
-    console.log(data);
-  };
-
-  // function to handle buttons
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
-
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const body = {
+        title,
+        description,
+        fee,
+        creator,
+        category,
+      }
+      const response = await fetch('http://localhost:5000/events/newevent', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+      const parseRes = await response.json()
+      console.log(parseRes.eventData)
+    } catch (err) {
+      alert(err)
+      console.error(err.message)
+    }
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <Paper className={classes.paper}>
-        <Typography component="h1" variant="h4" align="center">
+    <Paper className={classes.paper}>
+      <form onSubmit={onSubmit}>
+        <Typography
+          variant='h4'
+          align='center'
+          style={{
+            padding: '30px',
+          }}
+        >
           Create Event
         </Typography>
-        <Stepper activeStep={activeStep} className={classes.stepper}>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        <React.Fragment>
-          {getStepContent(activeStep)}
-          <div className={classes.buttons}>
-            {activeStep !== 0 && (
-              <Button onClick={handleBack} className={classes.button}>
-                Back
-              </Button>
-            )}
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleNext}
-              // disabled={() => {
-              //   return (
-              //     (activeStep === 0 && data.title === "") 
-              //     // ||
-              //     // (activeStep === 1 &&
-              //     //   data.startDate === "" &&
-              //     //   data.startTime === "" &&
-              //     //   data.endDate === "" &&
-              //     //   data.endTime === "")
-              //   );
-              // }}
-              className={classes.button}
-              type={activeStep === steps.length ? "submit" : "button"}
-            >
-              {activeStep === steps.length - 1 ? "Submit" : "Next"}
-            </Button>
-          </div>
-        </React.Fragment>
-      </Paper>
-    </form>
-  );
-};
 
-export default AddEventForm;
+        <TextField
+          style={{
+            padding: '5px',
+          }}
+          required
+          id='title'
+          label='Title'
+          variant='outlined'
+          name='title'
+          value={data.title}
+          onChange={handleChange}
+          fullWidth
+        />
+        <TextField
+          style={{
+            padding: '5px',
+          }}
+          required
+          id='description'
+          label='Description'
+          variant='outlined'
+          name='description'
+          value={data.description}
+          multiline
+          onChange={handleChange}
+          fullWidth
+        />
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              style={{
+                padding: '5px',
+              }}
+              required
+              id='fee'
+              type='number'
+              label='Fees'
+              variant='outlined'
+              name='fee'
+              value={data.fee}
+              onChange={handleChange}
+              fullWidth
+              autoComplete='cc-name'
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <InputLabel
+              style={{
+                padding: '5px',
+              }}
+              id='demo-simple-select-label'
+            >
+              Category
+            </InputLabel>
+            <Select
+              labelId='demo-simple-select-label'
+              id='demo-simple-select'
+              name='category'
+              onChange={handleChange}
+              fullWidth
+            >
+              {categories.map((cat) => (
+                <MenuItem key={cat.id} value={cat.categoryTitle}>
+                  {cat.categoryTitle}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+        </Grid>
+
+        <Typography
+          variant='h6'
+          gutterBottom
+          style={{
+            paddingTop: '20px',
+            paddingBottom: '20px',
+          }}
+        >
+          Date
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <Typography variant='h7' gutterBottom>
+              From :
+            </Typography>
+            <TextField
+              style={{
+                padding: '10px',
+              }}
+              required
+              id='startDate'
+              type='date'
+              variant='outlined'
+              name='startDate'
+              value={data.startDate}
+              onChange={handleChange}
+              fullWidth
+              autoComplete='cc-number'
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography variant='h7' gutterBottom>
+              To :
+            </Typography>
+            <TextField
+              required
+              style={{
+                padding: '10px',
+              }}
+              id='endDate'
+              type='date'
+              variant='outlined'
+              name='endDate'
+              value={data.endDate}
+              onChange={handleChange}
+              fullWidth
+              autoComplete='cc-number'
+            />
+          </Grid>
+        </Grid>
+        <Typography
+          variant='h6'
+          gutterBottom
+          style={{
+            paddingTop: '20px',
+            paddingBottom: '20px',
+          }}
+        >
+          Time
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <Typography variant='h7' gutterBottom>
+              From :
+            </Typography>
+            <TextField
+              style={{
+                padding: '10px',
+              }}
+              required='true'
+              id='startTime'
+              type='time'
+              variant='outlined'
+              name='startTime'
+              value={data.startTime}
+              onChange={handleChange}
+              fullWidth
+              autoComplete='cc-exp'
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography variant='h7' gutterBottom>
+              To :
+            </Typography>
+            <TextField
+              style={{
+                padding: '10px',
+              }}
+              required
+              id='endTime'
+              type='time'
+              variant='outlined'
+              name='endTime'
+              value={data.endTime}
+              onChange={handleChange}
+              fullWidth
+              autoComplete='cc-exp'
+            />
+          </Grid>
+        </Grid>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={onSubmit}
+          className={classes.button}
+          type='submit'
+          disabled={
+            data.title === '' ||
+            data.startDate === '' ||
+            data.endDate === '' ||
+            data.startTime === '' ||
+            data.endTime === ''
+          }
+        >
+          Submit
+        </Button>
+      </form>
+    </Paper>
+  )
+}
+
+export default AddEventForm

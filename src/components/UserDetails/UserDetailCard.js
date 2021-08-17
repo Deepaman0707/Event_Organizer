@@ -6,12 +6,12 @@ import Button from '@material-ui/core/Button'
 import Collapse from '@material-ui/core/Collapse'
 import CardFooter from '../Reusables/CardFooter.js'
 import { Avatar } from '@material-ui/core'
-import { connect } from 'react-redux'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import EditUserDetails from './EditUserDetails'
 import { Typography } from '@material-ui/core'
-
+import Cardbg from '../../assets/cardbg.jpg'
+import { useSelector } from 'react-redux'
 const useStyles = makeStyles((theme) => ({
   root: {
     overflow: 'auto',
@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     padding: '20px',
   },
+  bg: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
 
   media: {
     height: 0,
@@ -28,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     marginBottom: '10px',
   },
-  
+
   content: {
     padding: '20px 0',
   },
@@ -61,16 +65,19 @@ const useStyles = makeStyles((theme) => ({
     height: '100px',
     marginLeft: 'auto',
     marginRight: 'auto',
+    fontSize: '30px',
+    backgroundColor: 'black',
   },
-  details:{
+  details: {
     display: 'flex',
     alignItems: 'center',
     padding: '5px 30px 0 30px',
   },
 }))
 
-export const UserDetailCard = (props) => {
+export const UserDetailCard = () => {
   const classes = useStyles()
+  const {user} = useSelector((state) => state.auth)
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
@@ -78,39 +85,45 @@ export const UserDetailCard = (props) => {
   }
   return (
     <Card className={classes.root}>
-      <CardContent className={classes.content}>
-        <Avatar className={classes.avaIcon}>
-          <img src={props.imageUrl || props.user.imageURL} alt=''/>
-        </Avatar>
-        <Typography variant='h4'>{props.userHandle}</Typography>
-        <div className={classes.values}>
-          <div className={classes.details}>
-            <FavoriteIcon className={classes.fonts} color='secondary' />
-            <Typography variant='h3' color='secondary'>
-              {props.follows.followers.length}
-            </Typography>
-          </div>
-          <div className={classes.details}>
-            <CheckCircleIcon className={classes.fonts} color='primary' />
-            <Typography variant='h3' color='primary'>
-              {props.follows.followers.length}
-            </Typography>
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button
-          variant='outlined'
-          color='primary'
-          className={classes.editBtn}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label='show more'
-        >
-          <p> EDIT</p>
-        </Button>
-      </CardFooter>
+      <div style={{ backgroundImage: `url(${Cardbg})` }}>
+        <CardContent className={classes.content}>
+          <Avatar className={classes.avaIcon}>
+            {user.name === undefined ? 'A' : user.name.slice(0, 1)}
+          </Avatar>
 
+          <Typography variant='h4'>
+            <strong>{user.name} </strong>
+            <br />
+            <strong>{user.email}</strong>
+          </Typography>
+          <div className={classes.values}>
+            <div className={classes.details}>
+              <FavoriteIcon className={classes.fonts} color='secondary' />
+              <Typography variant='h3' color='secondary'>
+                {/* {user.followers.length} */}
+              </Typography>
+            </div>
+            <div className={classes.details}>
+              <CheckCircleIcon className={classes.fonts} color='primary' />
+              <Typography variant='h3' color='primary'>
+                {/* {user.following.length} */}
+              </Typography>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button
+            variant='outlined'
+            color='primary'
+            className={classes.editBtn}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label='show more'
+          >
+            <p>EDIT</p>
+          </Button>
+        </CardFooter>
+      </div>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent className={classes.content}>
           <EditUserDetails />
@@ -120,10 +133,4 @@ export const UserDetailCard = (props) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user.user,
-  userHandle: state.user.userHandle,
-  follows: state.user.follows,
-})
-
-export default connect(mapStateToProps)(UserDetailCard)
+export default UserDetailCard

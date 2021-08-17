@@ -24,12 +24,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { CardContent } from '@material-ui/core'
 import { Avatar } from '@material-ui/core'
 import { dailySalesChart, emailsSubscriptionChart } from '../../assets/charts'
-import { connect } from 'react-redux'
-import Link from 'react-router-dom/Link'
-import { setLikeEvent, setUnLikeEvent } from '../../actions/events'
-import { setCheckLikeEvent } from '../../actions/user'
-import { startRegisterEvent, startUnRegisterEvent } from '../../actions/events'
 import { Typography } from '@material-ui/core'
+import Music from '../../assets/Music.jpg'
+import Arts_and_Craft from '../../assets/Arts_and_Craft.jpg'
+import Esports from '../../assets/E-sports.jpg'
+import Sports from '../../assets/Sports.jpg'
+import Dance from '../../assets/Dance.jpg'
 import {
   successColor,
   whiteColor,
@@ -37,7 +37,8 @@ import {
   hexToRgb,
 } from '../../assets/UIItems'
 import { Button } from '@material-ui/core'
-
+import { useDispatch, useSelector } from 'react-redux'
+import Link from 'react-router-dom/Link'
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: '54px',
@@ -195,6 +196,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     width: '35px',
     height: '35px',
+    fontSize: '20px',
+    backgroundColor: 'black',
   },
 
   values: {
@@ -259,68 +262,167 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const EventCard = ({
-  eventID,
-  event,
-  userHandle,
-  checkLike,
-  likeEvent,
-  unLikeEvent,
-  checkLikeEvent,
-  registerEvent,
-  unRegisterEvent,
-}) => {
+const EventCard = () => {
   const classes = useStyles()
-
-  const [expanded, setExpanded] = React.useState(false)
-  const [likeCount, setLikeCount] = useState(event.likeCount)
-  const [like, setLike] = useState(checkLike)
-  const [checkRegister, setRegister] = useState(
-    event.members.hasOwnProperty(userHandle)
-  )
+  const event = useSelector((state) => state.auth.e)
+  const user = useSelector((state) => state.auth.user)
+  const view = useSelector((state) => state.auth.view)
+  console.log(event)
+  const dispatch = useDispatch()
+  const setEvent = (e) =>
+    dispatch({
+      type: 'SET_EVENT',
+      payload: e,
+    })
+  const setCreator = (view) =>
+    dispatch({
+      type: 'SET_VIEW',
+      payload: view,
+    })
 
   useEffect(() => {
-    checkLikeEvent(eventID).then((data) => {
-      setLike(data)
-    })
+    (async() => {
+    try {
+      // const body = { id: user.id }
+      const response = await fetch(
+        `http://localhost:5000/userdetail/${event.creator}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json',
+          },
+        }
+      )
+      const parseRes = await response.json()
+      console.log(parseRes.data)
+      setCreator(parseRes.data)
+    } catch (err) {
+      alert(err)
+      console.error(err.message)
+    }
+    })()
   }, [])
-
-  useEffect(() => {
-    setRegister(event.members.hasOwnProperty(userHandle))
-  }, [checkRegister])
-
-  const onClickLike = () => {
-    likeEvent(eventID).then(() => {
-      setLikeCount(likeCount + 1)
-      setLike(true)
-    })
+  const setLike = async () => {
+    try {
+      // const body = { id: user.id }
+      const response = await fetch(`http://localhost:5000/likes/${event.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: parseInt(user.id),
+        }),
+      })
+      const parseRes = await response.json()
+      console.log(parseRes.data)
+      setEvent(parseRes.data)
+    } catch (err) {
+      alert(err)
+      console.error(err.message)
+    }
   }
-
-  const onClickUnLike = () => {
-    unLikeEvent(eventID).then(() => {
-      setLikeCount(likeCount - 1)
-      setLike(false)
-    })
+  const setUnlike = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/likes/${event.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: parseInt(user.id),
+        }),
+      })
+      const parseRes = await response.json()
+      console.log(parseRes.data)
+      setEvent(parseRes.data)
+    } catch (err) {
+      alert(err)
+      console.error(err.message)
+    }
   }
-
-  const startRegisterEvent = () => {
-    registerEvent(eventID)
+  const setRegister = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/attendees/${event.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: parseInt(user.id),
+          }),
+        }
+      )
+      const parseRes = await response.json()
+      console.log(parseRes.data)
+      setEvent(parseRes.data)
+    } catch (err) {
+      alert(err)
+      console.error(err.message)
+    }
   }
-  const startUnRegisterEvent = () => {
-    unRegisterEvent(eventID)
+  const setUnregister = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/attendees/${event.id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: parseInt(user.id),
+          }),
+        }
+      )
+      const parseRes = await response.json()
+      console.log(parseRes.data)
+      setEvent(parseRes.data)
+    } catch (err) {
+      alert(err)
+      console.error(err.message)
+    }
   }
-
+  const [expanded, setExpanded] = React.useState(false)
+  const [liked, setLiked] = useState(event.likes.includes(user.id))
+  const [registered, setRegistered] = useState(
+    event.attendees.includes(user.id)
+  )
+  const image = (category) => {
+    switch (category) {
+      case 'Music':
+        return Music
+      case 'Dance':
+        return Dance
+      case 'E-Sports':
+        return Esports
+      case 'Sports':
+        return Sports
+      case 'Art_and_Craft':
+        return Arts_and_Craft
+    }
+  }
   const handleExpandClick = () => {
     setExpanded(!expanded)
+  }
+  const toggleLike = () => {
+    liked ? setUnlike() : setLike()
+    setLiked(!liked)
+  }
+  const toggleRegister = () => {
+    registered ? setUnregister() : setRegister()
+    setRegistered(!registered)
   }
 
   return (
     <Card className={classes.root}>
       <Grid container>
-        <Grid className={classes.item} items xs={6}>
+        <Grid className={classes.item} item xs={6}>
           <img
             className={classes.eventImage}
-            src={event.imageUrl}
+            src={image(event.category)}
             alt='Event'
           />
         </Grid>
@@ -331,18 +433,13 @@ const EventCard = ({
                 padding: 0,
               }}
             >
-              <Link to={`../user/${event.userHandle}`}>
+              <Link to={`../user/${event.creator}`}>
                 <div className={classes.handle}>
                   <Avatar className={classes.avaIcon}>
-                    <img
-                      src={event.userImageUrl}
-                      alt='User'
-                      width='70px'
-                      height='70px'
-                    />
+                    {view.name === undefined ? 'A' : view.name.slice(0,1)}
                   </Avatar>
                   <Typography variant='h4' color='secondary'>
-                    {event.userHandle}
+                    {view.name}
                   </Typography>
                 </div>
               </Link>
@@ -360,37 +457,30 @@ const EventCard = ({
                 variant='h3'
                 color='secondary'
               >
-                {event.eventName}
+                {event.event_name}
               </Typography>
             </CardHeader>
-            <Typography className={classes.attendNum}>0</Typography>
+            <Typography className={classes.attendNum}>
+              {event.attendees.length}
+            </Typography>
             <Typography className={classes.attendValue}>Attendees</Typography>
             <div className={classes.values}>
-              {like ? (
-                <Button
-                  className={classes.btnLike}
-                  title='unlike?'
-                  variant='text'
-                  color='secondary'
-                  size='large'
-                  onClick={onClickUnLike}
-                >
-                  <FavoriteBorderIcon className={classes.fonts} />
-                  {likeCount}
-                </Button>
-              ) : (
-                <Button
-                  className={classes.btnLike}
-                  title='like?'
-                  variant='text'
-                  color='secondary'
-                  size='large'
-                  onClick={onClickLike}
-                >
+              <Button
+                className={classes.btnLike}
+                title={liked ? 'unlike' : 'like'}
+                variant='text'
+                color='secondary'
+                size='large'
+                onClick={toggleLike}
+              >
+                {liked ? (
                   <FavoriteIcon className={classes.fonts} />
-                  {likeCount}
-                </Button>
-              )}
+                ) : (
+                  <FavoriteBorderIcon className={classes.fonts} />
+                )}
+                {event.likes.length}
+              </Button>
+
               <Typography variant='h4' className={classes.fees}>
                 <MonetizationOnIcon
                   className={classes.fonts}
@@ -420,26 +510,15 @@ const EventCard = ({
           <ExpandMoreIcon />
         </IconButton>
         <div className={classes.register}>
-          {!checkRegister && (
-            <Button
-              variant='contained'
-              color='primary'
-              className={classes.btn}
-              onClick={startRegisterEvent}
-            >
-              Register
-            </Button>
-          )}
-          {checkRegister && (
-            <Button
-              variant='contained'
-              color='primary'
-              className={classes.btn}
-              onClick={startUnRegisterEvent}
-            >
-              Unregister
-            </Button>
-          )}
+          <Button
+            className={classes.btn}
+            title={registered ? 'unRegister' : 'register'}
+            variant='contained'
+            color='primary'
+            onClick={toggleRegister}
+          >
+            {registered ? <p>Unregister</p> : <p>Register</p>}
+          </Button>
         </div>
       </CardFooter>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
@@ -519,84 +598,7 @@ const EventCard = ({
         </Grid>
       </Collapse>
     </Card>
-    /* <Grid container className={classes.grid}>
-        <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
-          <CustomTabs
-            title="Tasks:"
-            headerColor="primary"
-            tabs={[
-              {
-                tabName: "Bugs",
-                tabIcon: BugReport,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0, 3]}
-                    tasksIndexes={[0, 1, 2, 3]}
-                    tasks={bugs}
-                  />
-                ),
-              },
-              {
-                tabName: "Website",
-                tabIcon: Code,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0]}
-                    tasksIndexes={[0, 1]}
-                    tasks={website}
-                  />
-                ),
-              },
-              {
-                tabName: "Server",
-                tabIcon: Cloud,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[1]}
-                    tasksIndexes={[0, 1, 2]}
-                    tasks={server}
-                  />
-                ),
-              },
-            ]}
-          />
-        </Grid>
-        <Grid item className={classes.gridItem} xs={12} sm={12} md={6}>
-          <Card>
-            <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
-              <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
-              </p>
-            </CardHeader>
-            <CardBody>
-              <Table
-                tableHeaderColor="warning"
-                tableHead={["ID", "Name", "Salary", "Country"]}
-                tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger"],
-                  ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                  ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                  ["4", "Philip Chaney", "$38,735", "Korea, South"],
-                ]}
-              />
-            </CardBody>
-          </Card>
-        </Grid>
-      </Grid> */
   )
 }
-const mapDispatchToProps = (dispatch) => ({
-  likeEvent: (eventId) => dispatch(setLikeEvent(eventId)),
-  unLikeEvent: (eventId) => dispatch(setUnLikeEvent(eventId)),
-  checkLikeEvent: (eventId) => dispatch(setCheckLikeEvent(eventId)),
-  registerEvent: (eventId) => dispatch(startRegisterEvent(eventId)),
-  unRegisterEvent: (eventId) => dispatch(startUnRegisterEvent(eventId)),
-})
 
-const mapStateToProps = (state, props) => ({
-  event: state.events.find((event) => event.id === props.eventID),
-  userHandle: state.user.userHandle,
-  checkLike: state.user.checkLike,
-})
-export default connect(mapStateToProps, mapDispatchToProps)(EventCard)
+export default EventCard

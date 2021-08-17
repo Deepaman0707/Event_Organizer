@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import FavoriteIcon from '@material-ui/icons/Favorite'
-import { connect } from 'react-redux'
-import { startGetUserDetails } from './../../actions/user'
 import Card from '../Reusables/Card'
 import CardContent from '@material-ui/core/CardContent'
 import { Typography } from '@material-ui/core'
 import { Avatar } from '@material-ui/core'
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
     height: '100px',
     marginLeft: 'auto',
     marginRight: 'auto',
+    fontSize: '30px',
+    backgroundColor: 'black',
   },
   details: {
     display: 'flex',
@@ -51,61 +52,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export const UserDetails = ({ user, handle, getUserDetails, follows }) => {
+export const UserDetails = () => {
   const classes = useStyles()
-
-  const [userData, setUserData] = useState([])
-  const [followers, setFollowers] = useState([])
-  const [following, setFollowing] = useState([])
-  useEffect(() => {
-    console.log(handle)
-    if (handle) {
-      getUserDetails(handle).then((data) => {
-        setUserData(data.user)
-        setFollowers(data.follows.followers)
-        setFollowing(data.follows.following)
-      })
-    }
-  })
-
+  const view = useSelector((state) => state.auth.view)
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <Avatar className={classes.avaIcon}>
-          <img src={userData.imageURL || user.imageURL} alt='' />
+          {view.name === undefined ? 'A' : view.name.slice(0, 1)}
         </Avatar>
-        <Typography variant='h4'>
-          {(userData.name && userData.name) || (user.name && user.name)}
-        </Typography>
-        <Typography variant='h4'>{userData.handle || user.handle}</Typography>
+        <Typography variant='h4'>{view.name}</Typography>
+        <Typography variant='h4'>{view.email}</Typography>
         <div className={classes.values}>
           <div className={classes.details}>
             <FavoriteIcon className={classes.fonts} color='secondary' />
             <Typography variant='h3' color='secondary'>
-              {followers.length || follows.followers.length}
+              {/* {followers.length || follows.followers.length} */}
             </Typography>
           </div>
           <div className={classes.details}>
             <CheckCircleIcon className={classes.fonts} color='primary' />
             <Typography variant='h3' color='primary'>
-              {following.length || follows.following.length}
+              {/* {following.length || follows.following.length} */}
             </Typography>
           </div>
         </div>
-        {(userData.bio && (
+        {/* {(userData.bio && (
           <Typography variant='h4'>{userData.bio}</Typography>
         )) ||
-          (user.bio && <Typography variant='h4'>{user.bio}</Typography>)}
+          (user.bio && <Typography variant='h4'>{user.bio}</Typography>)} */}
       </CardContent>
     </Card>
   )
 }
 
-const mapStateToProps = (state, props) => ({
-  user: props.handle ? '' : state.user.user,
-  follows: state.user.follows,
-})
-const mapDispatchToProps = (dispatch) => ({
-  getUserDetails: (handle) => dispatch(startGetUserDetails(handle)),
-})
-export default connect(mapStateToProps, mapDispatchToProps)(UserDetails)
+export default UserDetails

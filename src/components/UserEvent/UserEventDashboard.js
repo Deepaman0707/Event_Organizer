@@ -1,25 +1,15 @@
 import React from 'react'
 import UserEventList from './UserEventList'
-// import { makeStyles } from '@material-ui/core/styles'
 import Popup from '../Wrappers/Popup'
-import AddEventForm from '../CreateEventForm/AddEventForm'
 import Typography from '@material-ui/core/Typography'
 import ParticleBgSection from '../Wrappers/ParticleBgSection'
-
-// const useStyles = makeStyles((theme) => ({
-//   contain: {
-//     width: '1000px',
-//     marginLeft: 'auto',
-//     marginRight: 'auto',
-//     alignItems: 'center',
-//     padding: theme.spacing(4),
-//   },
-// }))
+import { useSelector } from 'react-redux'
+import EventCard from '../EventDetails/EventCard'
 
 const UserEventDashboard = (props) => {
   // const classes = useStyles()
   const [open, setOpen] = React.useState(false)
-
+  const user = useSelector(state => state.auth.user)
   const sectionHeader = () => {
     return (
       <div>
@@ -83,8 +73,12 @@ const UserEventDashboard = (props) => {
           </Timeline> */}
       {/* </Grid>
       </Grid> */}
-      <UserEventList handleOpen={handleOpen} open={open} />
-      <Popup open={open} handleClose={handleClose} componenet={AddEventForm} />
+      <UserEventList
+        handleOpen={handleOpen}
+        open={open}
+        userid={user.id}
+      />
+      <Popup open={open} handleClose={handleClose} componenet={EventCard} />
     </>
   )
 }
