@@ -30,6 +30,7 @@ import Arts_and_Craft from '../../assets/Arts_and_Craft.jpg'
 import Esports from '../../assets/E-sports.jpg'
 import Sports from '../../assets/Sports.jpg'
 import Dance from '../../assets/Dance.jpg'
+import Empty from '../../assets/empty.jpg'
 import {
   successColor,
   whiteColor,
@@ -301,7 +302,7 @@ const EventCard = () => {
       console.error(err.message)
     }
     })()
-  }, [])
+  })
   const setLike = async () => {
     try {
       // const body = { id: user.id }
@@ -402,6 +403,8 @@ const EventCard = () => {
         return Sports
       case 'Art_and_Craft':
         return Arts_and_Craft
+      default: 
+        return Empty
     }
   }
   const handleExpandClick = () => {
