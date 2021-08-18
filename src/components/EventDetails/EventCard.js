@@ -286,7 +286,7 @@ const EventCard = () => {
     try {
       // const body = { id: user.id }
       const response = await fetch(
-        `http://localhost:5000/userdetail/${event.creator}`,
+        `https://mighty-anchorage-45416.herokuapp.com/userdetail/${event.creator}`,
         {
           method: 'GET',
           headers: {
@@ -306,7 +306,7 @@ const EventCard = () => {
   const setLike = async () => {
     try {
       // const body = { id: user.id }
-      const response = await fetch(`http://localhost:5000/likes/${event.id}`, {
+      const response = await fetch(`https://mighty-anchorage-45416.herokuapp.com/likes/${event.id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
@@ -325,7 +325,7 @@ const EventCard = () => {
   }
   const setUnlike = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/likes/${event.id}`, {
+      const response = await fetch(`https://mighty-anchorage-45416.herokuapp.com/likes/${event.id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json',
@@ -345,7 +345,7 @@ const EventCard = () => {
   const setRegister = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/attendees/${event.id}`,
+        `https://mighty-anchorage-45416.herokuapp.com/attendees/${event.id}`,
         {
           method: 'PUT',
           headers: {
@@ -367,7 +367,7 @@ const EventCard = () => {
   const setUnregister = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/attendees/${event.id}`,
+        `https://mighty-anchorage-45416.herokuapp.com/attendees/${event.id}`,
         {
           method: 'DELETE',
           headers: {
@@ -439,7 +439,7 @@ const EventCard = () => {
               <Link to={`../user/${event.creator}`}>
                 <div className={classes.handle}>
                   <Avatar className={classes.avaIcon}>
-                    {view.name === undefined ? 'A' : view.name.slice(0,1)}
+                    {view.name === undefined ? 'A' : view.name.slice(0, 1)}
                   </Avatar>
                   <Typography variant='h4' color='secondary'>
                     {view.name}
@@ -587,15 +587,11 @@ const EventCard = () => {
           <Card className={classes.time}>
             <div className={classes.details}>
               <AccessTime className={classes.icon} />
-              {' ' +
-                event.startDate +
-                (event.endDate !== event.startDate
-                  ? ' - ' + event.endDate
-                  : '')}
+              {`${event.startdate}, ${event.starttime} - ${event.enddate}, ${event.endtime}`}
             </div>
             <div className={classes.details}>
               <LocationOnIcon className={classes.icon} />
-              {event.location}
+              {'UIET'}
             </div>
           </Card>
         </Grid>
