@@ -282,31 +282,31 @@ const EventCard = () => {
     })
 
   useEffect(() => {
-    (async() => {
-    try {
-      // const body = { id: user.id }
-      const response = await fetch(
-        `https://mighty-anchorage-45416.herokuapp.com/userdetail/${event.creator}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-type': 'application/json',
-          },
-        }
-      )
-      const parseRes = await response.json()
-      console.log(parseRes.data)
-      setCreator(parseRes.data)
-    } catch (err) {
-      alert(err)
-      console.error(err.message)
-    }
+    ;(async () => {
+      try {
+        // const body = { id: user.id }
+        const response = await fetch(
+          `http://localhost:5000/userdetail/${event.creator}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-type': 'application/json',
+            },
+          }
+        )
+        const parseRes = await response.json()
+        console.log(parseRes.data)
+        setCreator(parseRes.data)
+      } catch (err) {
+        alert(err)
+        console.error(err.message)
+      }
     })()
   })
   const setLike = async () => {
     try {
       // const body = { id: user.id }
-      const response = await fetch(`https://mighty-anchorage-45416.herokuapp.com/likes/${event.id}`, {
+      const response = await fetch(`http://localhost:5000/likes/${event.id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
@@ -325,7 +325,7 @@ const EventCard = () => {
   }
   const setUnlike = async () => {
     try {
-      const response = await fetch(`https://mighty-anchorage-45416.herokuapp.com/likes/${event.id}`, {
+      const response = await fetch(`http://localhost:5000/likes/${event.id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json',
@@ -345,7 +345,7 @@ const EventCard = () => {
   const setRegister = async () => {
     try {
       const response = await fetch(
-        `https://mighty-anchorage-45416.herokuapp.com/attendees/${event.id}`,
+        `http://localhost:5000/attendees/${event.id}`,
         {
           method: 'PUT',
           headers: {
@@ -367,7 +367,7 @@ const EventCard = () => {
   const setUnregister = async () => {
     try {
       const response = await fetch(
-        `https://mighty-anchorage-45416.herokuapp.com/attendees/${event.id}`,
+        `http://localhost:5000/attendees/${event.id}`,
         {
           method: 'DELETE',
           headers: {
@@ -403,7 +403,7 @@ const EventCard = () => {
         return Sports
       case 'Art_and_Craft':
         return Arts_and_Craft
-      default: 
+      default:
         return Empty
     }
   }

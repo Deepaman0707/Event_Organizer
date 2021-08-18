@@ -2,8 +2,7 @@ import axios from 'axios'
 import axiosRetry from 'axios-retry'
 
 const EventData = axios.create({
-  baseURL:
-    'https://mighty-anchorage-45416.herokuapp.com/events',
+  baseURL: 'http://localhost:5000/events',
   timeout: 5000,
 })
 

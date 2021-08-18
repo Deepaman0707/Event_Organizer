@@ -75,16 +75,13 @@ const LoginPage = () => {
       try {
         setLoading(true)
         const body = { email, name, password }
-        const response = await fetch(
-          'https://mighty-anchorage-45416.herokuapp.com/auth/register',
-          {
-            method: 'POST',
-            headers: {
-              'Content-type': 'application/json',
-            },
-            body: JSON.stringify(body),
-          }
-        )
+        const response = await fetch('http://localhost:5000/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        })
         const parseRes = await response.json()
         console.log(parseRes.userData)
         if (parseRes.jwtToken) {

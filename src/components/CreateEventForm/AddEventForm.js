@@ -54,7 +54,16 @@ const AddEventForm = ({ handleClose }) => {
     startTime: '',
     endTime: '',
   })
-  const { title, description, fee, category, startDate, endDate, startTime, endTime } = data
+  const {
+    title,
+    description,
+    fee,
+    category,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+  } = data
 
   // function to handle changes
 
@@ -80,16 +89,13 @@ const AddEventForm = ({ handleClose }) => {
         startTime,
         endTime,
       }
-      const response = await fetch(
-        'https://mighty-anchorage-45416.herokuapp.com/events/newevent',
-        {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify(body),
-        }
-      )
+      const response = await fetch('http://localhost:5000/events/newevent', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
       const parseRes = await response.json()
       console.log(parseRes.eventData)
     } catch (err) {
